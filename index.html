@@ -200,7 +200,7 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
   <label>🔑 API KEY</label>
   <input type="text" id="apiKey" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="sk-ant-...">
   <button class="btn btn-ghost" onclick="saveKey()" style="padding:5px 12px;font-size:11px;">Salva</button>
-  <span class="api-status" id="apiStatus"></span>
+  <span class="api-status" id="apiStatus"></span><button class="btn btn-ghost" onclick="pasteKey()" style="padding:5px 12px;font-size:11px;">📋 Incolla</button>
 </div>
 
 <div class="client-bar">
@@ -581,6 +581,6 @@ function resetAll(){
 buildGuide();
 buildPhase1();
 buildPhase2();
-</script>
+function pasteKey(){if(navigator.clipboard&&navigator.clipboard.readText){navigator.clipboard.readText().then(function(t){var k=t.trim();if(k){document.getElementById("apiKey").value=k;saveKey();}else{alert("Clipboard vuoto. Copia prima la chiave.");}}).catch(function(){alert("Permesso clipboard negato. Incolla manualmente nel campo.");});}else{alert("Usa il campo testo e incolla con tasto lungo.");}}</script>
 </body>
 </html>
