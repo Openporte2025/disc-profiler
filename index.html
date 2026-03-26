@@ -1,561 +1,745 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>DISC Live Guide — O.P.E.R.A.</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#06080d;--bg2:#0c1018;--bg3:#111620;--bg4:#161c28;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.14);--accent:#00d4ff;--accent2:#7c4dff;--D:#ff3d3d;--I:#ffb300;--S:#00e676;--C:#2979ff;--text:#dce8f5;--text2:#8899aa;--muted:#445566;}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
-.grid-bg{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(0,212,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.02) 1px,transparent 1px);background-size:40px 40px;}
-.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
-.orb1{width:500px;height:500px;background:rgba(0,212,255,0.035);top:-150px;right:-100px;}
-.orb2{width:400px;height:400px;background:rgba(124,77,255,0.035);bottom:-100px;left:-100px;}
-.app{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:0 16px 100px;}
-header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);margin-bottom:24px;}
-.logo-group{display:flex;align-items:center;gap:12px;}
-.logo-badge{width:38px;height:38px;background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(124,77,255,0.2));border:1px solid rgba(0,212,255,0.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;}
-.logo-info{display:flex;flex-direction:column;gap:1px;}
-.logo-opera{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;}
-.logo-title{font-size:16px;font-weight:800;}
-.btn-reset{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--muted);font-family:'Syne',sans-serif;font-size:12px;cursor:pointer;-webkit-appearance:none;}
-/* COMPASS */
-.compass{position:sticky;top:12px;z-index:100;background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:16px 20px;margin-bottom:20px;transition:border-color 0.4s,box-shadow 0.4s;}
-.compass.D{border-color:rgba(255,61,61,0.5);box-shadow:0 0 30px rgba(255,61,61,0.12);}
-.compass.I{border-color:rgba(255,179,0,0.5);box-shadow:0 0 30px rgba(255,179,0,0.12);}
-.compass.S{border-color:rgba(0,230,118,0.5);box-shadow:0 0 30px rgba(0,230,118,0.12);}
-.compass.C{border-color:rgba(41,121,255,0.5);box-shadow:0 0 30px rgba(41,121,255,0.12);}
-.compass-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.compass-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
-.compass-profile{display:flex;align-items:center;gap:10px;}
-.disc-pill{padding:4px 14px;border-radius:20px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;transition:all 0.4s;}
-.disc-pill.D{background:rgba(255,61,61,0.2);color:var(--D);border:1px solid rgba(255,61,61,0.3);}
-.disc-pill.I{background:rgba(255,179,0,0.2);color:var(--I);border:1px solid rgba(255,179,0,0.3);}
-.disc-pill.S{background:rgba(0,230,118,0.2);color:var(--S);border:1px solid rgba(0,230,118,0.3);}
-.disc-pill.C{background:rgba(41,121,255,0.2);color:var(--C);border:1px solid rgba(41,121,255,0.3);}
-.disc-pill.none{background:var(--bg3);color:var(--muted);border:1px solid var(--border);}
-.compass-name{font-size:13px;font-weight:700;color:var(--text2);}
-.compass-tip{font-size:13px;color:var(--text2);line-height:1.5;min-height:20px;}
-.mini-bars{display:flex;gap:6px;align-items:flex-end;height:24px;margin-top:10px;}
-.mini-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;}
-.mini-bar-track{width:100%;background:var(--bg3);border-radius:3px;height:16px;overflow:hidden;position:relative;}
-.mini-bar-fill{position:absolute;bottom:0;left:0;right:0;border-radius:3px;transition:height 0.6s cubic-bezier(0.4,0,0.2,1);}
-.mini-bar-fill.D{background:var(--D);}
-.mini-bar-fill.I{background:var(--I);}
-.mini-bar-fill.S{background:var(--S);}
-.mini-bar-fill.C{background:var(--C);}
-.mini-bar-label{font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);}
-/* PHASE NAV */
-.phase-nav{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px;}
-.phase-btn{flex:1;min-width:0;padding:12px 6px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-family:'Syne',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:center;white-space:nowrap;-webkit-appearance:none;min-height:44px;}
-.phase-btn.active{background:rgba(0,212,255,0.08);border-color:var(--accent);color:var(--accent);}
-.phase-btn.done{border-color:rgba(0,230,118,0.4);color:var(--S);}
-/* SECTIONS */
-.section{display:none;}
-.section.active{display:block;}
-.section-title{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;}
-.section-title::before{content:'//';color:var(--muted);}
-.section-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px;padding:12px 16px;background:var(--bg3);border-radius:10px;border-left:3px solid var(--accent);}
-/* GUIDE CARDS */
-.guide-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden;}
-.guide-card-header{padding:16px 18px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;width:100%;background:none;border:none;text-align:left;color:var(--text);-webkit-appearance:none;}
-.guide-num{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(124,77,255,0.15));border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--accent);flex-shrink:0;}
-.guide-card-info{flex:1;}
-.guide-domanda{font-size:15px;font-weight:700;line-height:1.4;margin-bottom:4px;}
-.guide-quando{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:1px;}
-.guide-arrow{font-size:12px;color:var(--muted);transition:transform 0.2s;flex-shrink:0;margin-top:6px;}
-.guide-card.open .guide-arrow{transform:rotate(180deg);}
-.guide-body{padding:0 18px 18px;border-top:1px solid var(--border);display:none;}
-.guide-card.open .guide-body{display:block;}
-.guide-body-inner{padding-top:14px;}
-.guide-fai{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:8px;font-family:'Space Mono',monospace;letter-spacing:1px;}
-.guide-say{background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:10px 14px;font-size:13px;font-style:italic;color:var(--text);line-height:1.5;margin-bottom:14px;}
-.guide-osserva{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:10px;font-family:'Space Mono',monospace;letter-spacing:1px;}
-.guide-signals{display:flex;flex-direction:column;gap:6px;}
-.guide-signal{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;background:var(--bg3);border:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.4;}
-.signal-disc{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px;}
-.signal-disc.D{background:rgba(255,61,61,0.2);color:var(--D);}
-.signal-disc.I{background:rgba(255,179,0,0.2);color:var(--I);}
-.signal-disc.S{background:rgba(0,230,118,0.2);color:var(--S);}
-.signal-disc.C{background:rgba(41,121,255,0.2);color:var(--C);}
-/* FASE 1 — BOTTONI GRANDI per iPad */
-.signal-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;}
-.signal-q{font-size:14px;font-weight:700;margin-bottom:12px;line-height:1.4;}
-.signal-opts{display:flex;flex-direction:column;gap:8px;}
-.signal-opt{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;background:var(--bg3);border:2px solid transparent;cursor:pointer;transition:all 0.15s;font-size:14px;color:var(--text2);width:100%;text-align:left;-webkit-appearance:none;font-family:'Syne',sans-serif;font-weight:500;min-height:52px;line-height:1.4;}
-.signal-opt:active{transform:scale(0.98);}
-.signal-opt.sel{color:var(--text);}
-.signal-opt.sel.D{border-color:var(--D);background:rgba(255,61,61,0.1);}
-.signal-opt.sel.I{border-color:var(--I);background:rgba(255,179,0,0.1);}
-.signal-opt.sel.S{border-color:var(--S);background:rgba(0,230,118,0.1);}
-.signal-opt.sel.C{border-color:var(--C);background:rgba(41,121,255,0.1);}
-.opt-dot{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;flex-shrink:0;}
-.opt-dot.D{background:rgba(255,61,61,0.2);color:var(--D);}
-.opt-dot.I{background:rgba(255,179,0,0.2);color:var(--I);}
-.opt-dot.S{background:rgba(0,230,118,0.2);color:var(--S);}
-.opt-dot.C{background:rgba(41,121,255,0.2);color:var(--C);}
-/* FASE 2 — LIVE BTNS */
-.live-section-title{font-size:12px;font-weight:700;color:var(--text2);margin:18px 0 8px;letter-spacing:0.5px;}
-.live-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
-.live-btn{padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-family:'Syne',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:8px;-webkit-appearance:none;min-height:48px;}
-.live-btn:active{transform:scale(0.95);}
-.live-btn.fired.D{border-color:var(--D);color:var(--D);background:rgba(255,61,61,0.08);}
-.live-btn.fired.I{border-color:var(--I);color:var(--I);background:rgba(255,179,0,0.08);}
-.live-btn.fired.S{border-color:var(--S);color:var(--S);background:rgba(0,230,118,0.08);}
-.live-btn.fired.C{border-color:var(--C);color:var(--C);background:rgba(41,121,255,0.08);}
-.btn-disc{font-family:'Space Mono',monospace;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:700;}
-.btn-disc.D{background:rgba(255,61,61,0.2);color:var(--D);}
-.btn-disc.I{background:rgba(255,179,0,0.2);color:var(--I);}
-.btn-disc.S{background:rgba(0,230,118,0.2);color:var(--S);}
-.btn-disc.C{background:rgba(41,121,255,0.2);color:var(--C);}
-/* RESULTS */
-.result-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;}
-.result-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;}
-.result-name{font-size:20px;font-weight:900;margin-bottom:3px;}
-.result-sub{font-size:12px;color:var(--text2);}
-.big-badge{width:60px;height:60px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;font-family:'Space Mono',monospace;flex-shrink:0;}
-.big-badge.D{background:rgba(255,61,61,0.15);color:var(--D);border:2px solid rgba(255,61,61,0.3);}
-.big-badge.I{background:rgba(255,179,0,0.15);color:var(--I);border:2px solid rgba(255,179,0,0.3);}
-.big-badge.S{background:rgba(0,230,118,0.15);color:var(--S);border:2px solid rgba(0,230,118,0.3);}
-.big-badge.C{background:rgba(41,121,255,0.15);color:var(--C);border:2px solid rgba(41,121,255,0.3);}
-.res-bars{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
-.res-row{display:flex;align-items:center;gap:12px;}
-.res-lbl{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;flex-shrink:0;}
-.res-lbl.D{background:rgba(255,61,61,0.2);color:var(--D);}
-.res-lbl.I{background:rgba(255,179,0,0.2);color:var(--I);}
-.res-lbl.S{background:rgba(0,230,118,0.2);color:var(--S);}
-.res-lbl.C{background:rgba(41,121,255,0.2);color:var(--C);}
-.res-track{flex:1;background:var(--bg3);border-radius:4px;height:7px;overflow:hidden;}
-.res-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(0.4,0,0.2,1);width:0;}
-.res-fill.D{background:linear-gradient(90deg,rgba(255,61,61,0.4),var(--D));}
-.res-fill.I{background:linear-gradient(90deg,rgba(255,179,0,0.4),var(--I));}
-.res-fill.S{background:linear-gradient(90deg,rgba(0,230,118,0.4),var(--S));}
-.res-fill.C{background:linear-gradient(90deg,rgba(41,121,255,0.4),var(--C));}
-.res-pct{font-family:'Space Mono',monospace;font-size:11px;color:var(--text2);width:32px;text-align:right;flex-shrink:0;}
-.res-cards{display:flex;flex-direction:column;gap:12px;}
-.res-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;}
-.res-card-title{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
-.res-card-body{font-size:13px;color:var(--text2);line-height:1.7;}
-.tip-row{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:6px;}
-.phrase-box{background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.2);border-radius:10px;padding:14px 16px;font-size:14px;font-style:italic;color:var(--accent);line-height:1.6;margin-top:4px;}
-/* PREVENTIVO BOX */
-.prev-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;}
-.prev-intro{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;padding:14px;background:var(--bg3);border-radius:10px;border-left:3px solid var(--I);}
-.prev-strategy{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
-.prev-item{display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--bg3);border-radius:10px;border:1px solid var(--border);}
-.prev-item-icon{font-size:20px;flex-shrink:0;}
-.prev-item-body{flex:1;}
-.prev-item-title{font-size:13px;font-weight:700;margin-bottom:4px;}
-.prev-item-desc{font-size:12px;color:var(--text2);line-height:1.5;}
-.prev-script{background:rgba(255,179,0,0.05);border:1px solid rgba(255,179,0,0.2);border-radius:10px;padding:16px;margin-bottom:8px;}
-.prev-script-title{font-family:'Space Mono',monospace;font-size:9px;color:var(--I);letter-spacing:2px;margin-bottom:10px;}
-.prev-script-text{font-size:13px;font-style:italic;color:var(--text);line-height:1.7;}
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:13px 22px;border-radius:12px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;transition:all 0.2s;-webkit-appearance:none;min-height:48px;}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;box-shadow:0 4px 16px rgba(0,212,255,0.2);}
-.btn-primary:active{transform:scale(0.97);}
-.btn-ghost{background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
-.btn-ghost:active{transform:scale(0.97);}
-.next-phase-bar{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
-.phase-counter{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);}
-.result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
-/* LOADING */
-.loading-overlay{display:none;flex-direction:column;align-items:center;gap:16px;padding:40px 0;}
-.loading-overlay.active{display:flex;}
-.loading-ring{width:50px;height:50px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.loading-txt{font-family:'Space Mono',monospace;font-size:11px;color:var(--text2);letter-spacing:1px;}
-/* API / CLIENT */
-.api-bar{background:rgba(255,179,0,0.05);border:1px solid rgba(255,179,0,0.15);border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.api-bar label{font-size:11px;color:var(--I);font-weight:700;white-space:nowrap;font-family:'Space Mono',monospace;}
-.api-bar input{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'Space Mono',monospace;font-size:11px;outline:none;flex:1;min-width:160px;min-height:36px;}
-.api-status{font-size:11px;color:var(--muted);}
-.client-bar{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
-.client-bar input{background:none;border:none;outline:none;color:var(--text);font-family:'Syne',sans-serif;font-size:14px;font-weight:600;flex:1;min-height:36px;}
-.client-bar input::placeholder{color:var(--muted);font-weight:400;}
-</style>
-</head>
-<body>
-<div class="grid-bg"></div>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-<div class="app">
+// ═══════════════════════════════════════════════════════════════════════
+// 🧭 DISC MODULE v1.0.0
+// shared-database.pages.dev/disc-module.js
+// Caricato da: App Rilievo, Dashboard Ufficio, App Posa
+//
+// USO:
+//   DISC_MODULE.open(projectId)     → apre pannello sul progetto
+//   DISC_MODULE.open()              → apre pannello standalone
+//   project.clientData.disc         → dati salvati nel progetto
+//
+// STRUTTURA project.clientData.disc:
+//   {
+//     dominant: 'C',
+//     scores: { D:22, I:18, S:28, C:72 },
+//     who: '...',
+//     communicate: '...',
+//     sell: '...',
+//     closingPhrase: '...',
+//     contacts: [{ date, channel, signals, notes }],
+//     updatedAt: '2026-03-26T...'
+//   }
+// ═══════════════════════════════════════════════════════════════════════
 
-<header>
-  <div class="logo-group">
-    <div class="logo-badge">🧭</div>
-    <div class="logo-info">
-      <span class="logo-opera">O.P.E.R.A.</span>
-      <span class="logo-title">DISC Live Guide</span>
-    </div>
-  </div>
-  <button class="btn-reset" onclick="resetAll()">↺ Reset</button>
-</header>
+if (typeof window.DISC_MODULE === 'undefined') {
 
-<div class="api-bar" id="apiBar">
-  <label>🔑 API KEY</label>
-  <input type="text" id="apiKey" placeholder="sk-ant-..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-  <button class="btn btn-ghost" onclick="saveKey()" style="padding:8px 14px;font-size:12px;min-height:36px;">Salva</button>
-  <span class="api-status" id="apiStatus"></span>
-</div>
+window.DISC_MODULE = (function() {
 
-<div class="client-bar">
-  <span style="font-size:20px;">👤</span>
-  <input type="text" id="clientName" placeholder="Nome cliente...">
-</div>
+  // ── CONFIG ────────────────────────────────────────────────────────
+  var VERSION = '1.0.0';
+  var API_KEY_STORAGE = 'disc_apikey';
+  var currentProjectId = null;
+  var scores = { D:0, I:0, S:0, C:0 };
+  var p1answers = {};
+  var p2events = [];
+  var lastResult = null;
 
-<!-- BUSSOLA -->
-<div class="compass" id="compass">
-  <div class="compass-top">
-    <span class="compass-label">// bussola live</span>
-    <div class="compass-profile">
-      <div class="disc-pill none" id="compassPill">—</div>
-      <span class="compass-name" id="compassName">In attesa...</span>
-    </div>
-  </div>
-  <div class="compass-tip" id="compassTip">Inizia dalla Fase 0 — leggi le domande da fare al cliente.</div>
-  <div class="mini-bars">
-    <div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill D" id="mbD" style="height:0%"></div></div><div class="mini-bar-label">D</div></div>
-    <div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill I" id="mbI" style="height:0%"></div></div><div class="mini-bar-label">I</div></div>
-    <div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill S" id="mbS" style="height:0%"></div></div><div class="mini-bar-label">S</div></div>
-    <div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill C" id="mbC" style="height:0%"></div></div><div class="mini-bar-label">C</div></div>
-  </div>
-</div>
+  // ── TIPS PER BUSSOLA ──────────────────────────────────────────────
+  var tips = {
+    D: { name:'Dominante',     tip:'<strong>Va diretto.</strong> Prezzi e tempi subito. Niente giri di parole.' },
+    I: { name:'Influente',     tip:'<strong>Entusiasmo e relazione.</strong> Storie di successo. Fallo sentire speciale.' },
+    S: { name:'Stabile',       tip:'<strong>Costruisci fiducia.</strong> Niente fretta. Garanzie. Dagli tempo.' },
+    C: { name:'Coscienzioso',  tip:'<strong>Porta i dati.</strong> Certificazioni, schede. Niente pressione.' }
+  };
 
-<!-- PHASE NAV -->
-<div class="phase-nav">
-  <button class="phase-btn active" id="pnav0" onclick="goPhase(0)">0️⃣ Domande</button>
-  <button class="phase-btn" id="pnav1" onclick="goPhase(1)">1️⃣ Impressioni</button>
-  <button class="phase-btn" id="pnav2" onclick="goPhase(2)">2️⃣ Durante</button>
-  <button class="phase-btn" id="pnav3" onclick="goPhase(3)">3️⃣ Profilo</button>
-  <button class="phase-btn" id="pnav4" onclick="goPhase(4)">4️⃣ Preventivo</button>
-</div>
-
-<!-- FASE 0 -->
-<div class="section active" id="phase0">
-  <div class="section-title">Domande da fare al cliente</div>
-  <div class="section-desc">Inseriscile naturalmente nella conversazione. Non devi farle tutte — usa quelle che si incastrano meglio con il momento.</div>
-  <div id="guideCards"></div>
-  <div class="next-phase-bar">
-    <span class="phase-counter">Usa durante la consulenza</span>
-    <button class="btn btn-primary" onclick="goPhase(1)">Vai alle impressioni →</button>
-  </div>
-</div>
-
-<!-- FASE 1 -->
-<div class="section" id="phase1">
-  <div class="section-title">Prime impressioni</div>
-  <div class="section-desc">Tocca la risposta che corrisponde a quello che stai osservando.</div>
-  <div id="signalGrid1"></div>
-  <div class="next-phase-bar">
-    <span class="phase-counter" id="p1counter">0 segnali</span>
-    <button class="btn btn-primary" onclick="goPhase(2)">Fase 2 →</button>
-  </div>
-</div>
-
-<!-- FASE 2 -->
-<div class="section" id="phase2">
-  <div class="section-title">Segnali durante la consulenza</div>
-  <div class="section-desc">Tocca quando succede — la bussola si aggiorna in tempo reale.</div>
-  <div class="live-section-title">💬 Come parla</div>
-  <div class="live-btns" id="livebtns1"></div>
-  <div class="live-section-title">💰 Sul prezzo</div>
-  <div class="live-btns" id="livebtns2"></div>
-  <div class="live-section-title">🔍 Cosa lo interessa</div>
-  <div class="live-btns" id="livebtns3"></div>
-  <div class="live-section-title">⏱️ Sul decidere</div>
-  <div class="live-btns" id="livebtns4"></div>
-  <div class="next-phase-bar">
-    <span class="phase-counter" id="p2counter">0 segnali</span>
-    <button class="btn btn-primary" onclick="goPhase(3)">Genera profilo →</button>
-  </div>
-</div>
-
-<!-- FASE 3 -->
-<div class="section" id="phase3">
-  <div class="section-title">Profilo completo</div>
-  <div class="loading-overlay" id="loadingBox">
-    <div class="loading-ring"></div>
-    <div class="loading-txt">Claude sta analizzando i segnali...</div>
-  </div>
-  <div id="resultBox"></div>
-</div>
-
-<!-- FASE 4 — PREVENTIVO -->
-<div class="section" id="phase4">
-  <div class="section-title">Strategia preventivo</div>
-  <div class="loading-overlay" id="loadingPrev">
-    <div class="loading-ring"></div>
-    <div class="loading-txt">Elaborando strategia preventivo...</div>
-  </div>
-  <div id="prevBox"></div>
-</div>
-
-</div>
-<script>
-var scores={D:0,I:0,S:0,C:0};
-var p1answers={};
-var p2events=[];
-var lastResult=null;
-var apiKey=localStorage.getItem('disc_apikey')||'';
-
-if(apiKey){
-  document.getElementById('apiKey').value=apiKey;
-  document.getElementById('apiStatus').textContent='✅ OK';
-  document.getElementById('apiStatus').style.color='var(--S)';
-  document.getElementById('apiBar').style.display='none';
-}
-function saveKey(){
-  var k=document.getElementById('apiKey').value.trim();
-  if(k){apiKey=k;localStorage.setItem('disc_apikey',k);
-    document.getElementById('apiStatus').textContent='✅ Salvata!';
-    document.getElementById('apiStatus').style.color='var(--S)';
-    setTimeout(function(){document.getElementById('apiBar').style.display='none';},1500);}
-}
-
-// ── FASE 0 ──────────────────────────────────────────────────────────────────
-var guide=[
-  {num:'01',quando:"ALL'INIZIO",domanda:"Ha già un'idea o preferisce che le mostri le opzioni?",dici:'"Ha già qualcosa in mente, o preferisce che le mostri cosa abbiamo?"',osserva:'La risposta immediata è il segnale più forte',signals:[{d:'D',t:'"Ho già deciso, voglio solo il prezzo"'},{d:'I',t:'"Mostrami tutto!" — entusiasta, vuole ispirazione'},{d:'S',t:'"Non so... cosa mi consiglia lei?"'},{d:'C',t:'"Ho fatto ricerche, ho domande specifiche"'}]},
-  {num:'02',quando:'SUI PRODOTTI',domanda:"Cosa è più importante per lei in questa scelta?",dici:'"Quando sceglie una finestra, cosa conta di più per lei?"',osserva:'La prima cosa che nomina è il profilo dominante',signals:[{d:'D',t:'"Qualità e tempi — voglio che sia fatto bene e in fretta"'},{d:'I',t:'"L\'estetica — deve stare bene con la casa"'},{d:'S',t:'"L\'affidabilità — voglio essere sicuro che dura"'},{d:'C',t:'"Le prestazioni tecniche — trasmittanza, certificazioni"'}]},
-  {num:'03',quando:'SUL PREVENTIVO',domanda:"Come preferisce ricevere il preventivo?",dici:'"Preferisce che glielo mando via email o lo vediamo insieme?"',osserva:'Rivela come vuole decidere',signals:[{d:'D',t:'"Mandamelo, lo guardo io" — decide da solo'},{d:'I',t:'"Vediamolo insieme!" — vuole interazione'},{d:'S',t:'"Lo vedo con mia moglie/marito"'},{d:'C',t:'"Mandamelo, ho bisogno di analizzarlo con calma"'}]},
-  {num:'04',quando:'SUI TEMPI',domanda:"Ha una scadenza o urgenza?",dici:'"Ha in mente una data entro cui vorrebbe i lavori completati?"',osserva:'Il tono più che la risposta',signals:[{d:'D',t:'Data precisa e ferma — controllo totale'},{d:'I',t:'"Prima è meglio... ma non ho fretta" — ottimista'},{d:'S',t:'"Dipende, non voglio che sia un problema per voi"'},{d:'C',t:'"Dipende dal materiale — quali sono i vostri tempi reali?"'}]},
-  {num:'05',quando:'ALLA FINE',domanda:"Cosa le serve per decidere?",dici:'"Come vuole procedere da qui? Cosa le serve per decidere?"',osserva:'Ti dice esattamente dove si trova',signals:[{d:'D',t:'"Facciamo — quando possiamo firmare?"'},{d:'I',t:'"Mi fido, ma voglio mostrarlo a mia moglie"'},{d:'S',t:'"Ho bisogno di pensarci... ci risentiremo"'},{d:'C',t:'"Ho ancora domande tecniche da chiarire"'}]}
-];
-
-function buildGuide(){
-  var h='';
-  guide.forEach(function(g,i){
-    h+='<div class="guide-card'+(i===0?' open':'')+'" id="gc'+i+'">'
-      +'<button class="guide-card-header" onclick="toggleGuide('+i+')">'
-      +'<div class="guide-num">'+g.num+'</div>'
-      +'<div class="guide-card-info"><div class="guide-domanda">'+g.domanda+'</div><div class="guide-quando">⏰ '+g.quando+'</div></div>'
-      +'<div class="guide-arrow">▼</div></button>'
-      +'<div class="guide-body"><div class="guide-body-inner">'
-      +'<div class="guide-fai">// COSA DIRE</div>'
-      +'<div class="guide-say">'+g.dici+'</div>'
-      +'<div class="guide-osserva">// OSSERVA — '+g.osserva+'</div>'
-      +'<div class="guide-signals">'
-      +g.signals.map(function(s){return'<div class="guide-signal"><div class="signal-disc '+s.d+'">'+s.d+'</div><span>'+s.t+'</span></div>';}).join('')
-      +'</div></div></div></div>';
-  });
-  document.getElementById('guideCards').innerHTML=h;
-}
-function toggleGuide(i){document.getElementById('gc'+i).classList.toggle('open');}
-
-// ── FASE 1 ──────────────────────────────────────────────────────────────────
-var q1=[
-  {q:"Come ti ha accolto?",opts:[{d:'D',t:"Diretto, ti ha subito detto cosa vuole"},{d:'I',t:"Caloroso, sorridente, chiacchierone"},{d:'S',t:"Cordiale ma riservato, ti ha offerto qualcosa"},{d:'C',t:"Formale e preciso, senza fronzoli"}]},
-  {q:"Come parla?",opts:[{d:'D',t:"Veloce, va al punto, poche parole"},{d:'I',t:"Racconta storie, entusiasta, salta argomenti"},{d:'S',t:"Calmo, ascolta più che parlare"},{d:'C',t:"Preciso, domande tecniche specifiche"}]},
-  {q:"Cosa ha guardato/chiesto per primo?",opts:[{d:'D',t:"Prezzi o tempi di consegna"},{d:'I',t:"Foto dei lavori o colori disponibili"},{d:'S',t:"Garanzie o referenze di altri clienti"},{d:'C',t:"Schede tecniche o certificazioni"}]},
-  {q:"Atteggiamento generale?",opts:[{d:'D',t:"Deciso, sa cosa vuole, non perde tempo"},{d:'I',t:"Entusiasta, ottimista, simpatico"},{d:'S',t:"Riflessivo, cauto, vuole capire bene"},{d:'C',t:"Analitico, fa molte domande precise"}]}
-];
-
-function buildPhase1(){
-  var h='';
-  q1.forEach(function(q,qi){
-    var opts=q.opts.map(function(o,oi){
-      var sel=p1answers[qi]&&p1answers[qi].oi===oi?' sel '+o.d:'';
-      return '<button class="signal-opt'+sel+'" onclick="selP1('+qi+','+oi+',\''+o.d+'\',\''+o.t.replace(/'/g,"\\'")+'\')"><div class="opt-dot '+o.d+'">'+o.d+'</div>'+o.t+'</button>';
-    }).join('');
-    h+='<div class="signal-card"><div class="signal-q">'+q.q+'</div><div class="signal-opts" id="so'+qi+'">'+opts+'</div></div>';
-  });
-  document.getElementById('signalGrid1').innerHTML=h;
-}
-function selP1(qi,oi,disc,text){
-  if(p1answers[qi])scores[p1answers[qi].disc]=Math.max(0,scores[p1answers[qi].disc]-2);
-  p1answers[qi]={oi:oi,disc:disc,text:text};
-  scores[disc]=(scores[disc]||0)+2;
-  document.getElementById('so'+qi).querySelectorAll('.signal-opt').forEach(function(el,i){
-    el.className='signal-opt'+(i===oi?' sel '+disc:'');
-  });
-  document.getElementById('p1counter').textContent=Object.keys(p1answers).length+' segnali';
-  updateCompass();
-}
-
-// ── FASE 2 ──────────────────────────────────────────────────────────────────
-var liveBtns=[
-  [{d:'D',l:'Va al punto'},{d:'I',l:'Racconta storie'},{d:'S',l:'Ascolta in silenzio'},{d:'C',l:'Domande tecniche'}],
-  [{d:'D',l:'Negozia subito'},{d:'I',l:"Dice 'vedremo'"},{d:'S',l:'Sente la famiglia'},{d:'C',l:'Vuole confronto'}],
-  [{d:'D',l:'Vuole risultati'},{d:'I',l:'Guarda foto/estetica'},{d:'S',l:'Chiede garanzie'},{d:'C',l:'Legge schede'}],
-  [{d:'D',l:'Decide subito'},{d:'I',l:"Entusiasta ma 'ci penso'"},{d:'S',l:'Prende tempo'},{d:'C',l:'Vuole più dati'}]
-];
-function buildPhase2(){
-  ['livebtns1','livebtns2','livebtns3','livebtns4'].forEach(function(id,gi){
-    document.getElementById(id).innerHTML=liveBtns[gi].map(function(b,bi){
-      return '<button class="live-btn" id="lb'+gi+'_'+bi+'" onclick="fireBtn('+gi+','+bi+',\''+b.d+'\',\''+b.l+'\')">'
-        +'<span class="btn-disc '+b.d+'">'+b.d+'</span>'+b.l+'</button>';
-    }).join('');
-  });
-}
-function fireBtn(gi,bi,disc,label){
-  scores[disc]=(scores[disc]||0)+3;
-  p2events.push({disc:disc,label:label});
-  var btn=document.getElementById('lb'+gi+'_'+bi);
-  btn.classList.add('fired',disc);
-  setTimeout(function(){btn.classList.remove('fired','D','I','S','C');},600);
-  document.getElementById('p2counter').textContent=p2events.length+' segnali';
-  updateCompass();
-}
-
-// ── COMPASS ─────────────────────────────────────────────────────────────────
-var tips={
-  D:{name:'Dominante',tip:'<strong>Va diretto.</strong> Prezzi e tempi subito. Niente giri di parole.'},
-  I:{name:'Influente',tip:'<strong>Entusiasmo e relazione.</strong> Storie di successo. Fallo sentire speciale.'},
-  S:{name:'Stabile',tip:'<strong>Costruisci fiducia.</strong> Niente fretta. Garanzie. Dagli tempo.'},
-  C:{name:'Coscienzioso',tip:'<strong>Porta i dati.</strong> Certificazioni, schede. Niente pressione.'}
-};
-function updateCompass(){
-  var tot=scores.D+scores.I+scores.S+scores.C;if(!tot)return;
-  var dom='D';['I','S','C'].forEach(function(d){if(scores[d]>scores[dom])dom=d;});
-  document.getElementById('compass').className='compass '+dom;
-  var p=document.getElementById('compassPill');p.className='disc-pill '+dom;p.textContent=dom;
-  document.getElementById('compassName').textContent=tips[dom].name;
-  document.getElementById('compassTip').innerHTML=tips[dom].tip;
-  ['D','I','S','C'].forEach(function(d){document.getElementById('mb'+d).style.height=Math.round(scores[d]/tot*100)+'%';});
-}
-
-// ── PHASES ──────────────────────────────────────────────────────────────────
-function goPhase(n){
-  [0,1,2,3,4].forEach(function(i){
-    document.getElementById('phase'+i).classList.toggle('active',i===n);
-    var b=document.getElementById('pnav'+i);
-    b.classList.remove('active','done');
-    if(i===n)b.classList.add('active');
-    else if(i<n)b.classList.add('done');
-  });
-  if(n===3)generateProfile();
-  if(n===4)generatePreventivo();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-// ── API CALL ────────────────────────────────────────────────────────────────
-function callAPI(prompt, onSuccess, onFallback){
-  if(!apiKey){onFallback();return;}
-  fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,messages:[{role:'user',content:prompt}]})
-  }).then(function(r){return r.json();})
-  .then(function(data){
-    var txt=data.content&&data.content[0]?data.content[0].text:'';
-    onSuccess(JSON.parse(txt.replace(/```json|```/g,'').trim()));
-  }).catch(function(e){console.error(e);onFallback();});
-}
-
-// ── GENERA PROFILO ──────────────────────────────────────────────────────────
-function generateProfile(){
-  document.getElementById('loadingBox').classList.add('active');
-  document.getElementById('resultBox').innerHTML='';
-  var name=document.getElementById('clientName').value||'Cliente';
-  var tot=scores.D+scores.I+scores.S+scores.C||1;
-  var dom='D';['I','S','C'].forEach(function(d){if(scores[d]>scores[dom])dom=d;});
-  var ctx='Fase 1:\n'+Object.values(p1answers).map(function(a){return'- '+a.text+' ['+a.disc+']';}).join('\n')
-    +'\n\nFase 2:\n'+p2events.map(function(e){return'- '+e.label+' ['+e.disc+']';}).join('\n')
-    +'\n\nPunteggi: D='+scores.D+' I='+scores.I+' S='+scores.S+' C='+scores.C;
-  var prompt='Esperto DISC per vendita serramenti.\n\nCliente "'+name+'":\n'+ctx+'\n\nRispondi SOLO con JSON:\n{"dominant":"D|I|S|C","dominantName":"nome italiano","scores":{"D":0-100,"I":0-100,"S":0-100,"C":0-100},"who":"chi è 2-3 frasi","communicate":"come comunicare 2-3 frasi","sell":"come vendere serramenti 3-4 frasi","do":["fare 1","fare 2","fare 3"],"dont":["evitare 1","evitare 2","evitare 3"],"closingPhrase":"frase chiusura specifica"}';
-  callAPI(prompt,
-    function(data){lastResult=data;document.getElementById('loadingBox').classList.remove('active');showProfile(data,name);},
-    function(){
-      var fb={dominant:dom,dominantName:tips[dom].name,scores:{D:Math.round(scores.D/tot*100),I:Math.round(scores.I/tot*100),S:Math.round(scores.S/tot*100),C:Math.round(scores.C/tot*100)},who:'Profilo '+dom+'. Configura API Key per analisi completa.',communicate:tips[dom].tip.replace(/<[^>]+>/g,''),sell:'Aggiungi API Key per strategia personalizzata.',do:['Usa i consigli della bussola','Torna alle domande guida','Raccogli più segnali nella fase 2'],dont:['Ignorare il profilo rilevato','Stesso approccio con tutti','Fare pressione'],closingPhrase:'"Aggiungi API Key per la frase di chiusura."'};
-      lastResult=fb;document.getElementById('loadingBox').classList.remove('active');showProfile(fb,name);
+  // ── DOMANDE GUIDA (Fase 0) ────────────────────────────────────────
+  var guide = [
+    { num:'01', quando:"ALL'INIZIO",
+      domanda:"Ha già un'idea o preferisce che le mostri le opzioni?",
+      dici:'"Ha già qualcosa in mente, o preferisce che le mostri cosa abbiamo?"',
+      osserva:'La risposta immediata è il segnale più forte',
+      signals:[{d:'D',t:'"Ho già deciso, voglio solo il prezzo"'},{d:'I',t:'"Mostrami tutto!" — vuole ispirazione'},{d:'S',t:'"Non so... cosa mi consiglia lei?"'},{d:'C',t:'"Ho fatto ricerche, ho domande specifiche"'}]
+    },
+    { num:'02', quando:'SUI PRODOTTI',
+      domanda:"Cosa è più importante per lei in questa scelta?",
+      dici:'"Quando sceglie una finestra, cosa conta di più per lei?"',
+      osserva:'La prima cosa che nomina è il profilo dominante',
+      signals:[{d:'D',t:'"Qualità e tempi — voglio che sia fatto bene e in fretta"'},{d:'I',t:'"L\'estetica — deve stare bene con la casa"'},{d:'S',t:'"L\'affidabilità — voglio essere sicuro che dura"'},{d:'C',t:'"Le prestazioni tecniche — trasmittanza, certificazioni"'}]
+    },
+    { num:'03', quando:'SUL PREVENTIVO',
+      domanda:"Come preferisce ricevere il preventivo?",
+      dici:'"Preferisce che glielo mando via email o lo vediamo insieme?"',
+      osserva:'Rivela come vuole decidere',
+      signals:[{d:'D',t:'"Mandamelo, lo guardo io" — decide da solo'},{d:'I',t:'"Vediamolo insieme!" — vuole interazione'},{d:'S',t:'"Lo vedo con mia moglie/marito"'},{d:'C',t:'"Mandamelo, ho bisogno di analizzarlo con calma"'}]
+    },
+    { num:'04', quando:'SUI TEMPI',
+      domanda:"Ha una scadenza o urgenza?",
+      dici:'"Ha in mente una data entro cui vorrebbe i lavori completati?"',
+      osserva:'Il tono più che la risposta',
+      signals:[{d:'D',t:'Data precisa e ferma — controllo totale'},{d:'I',t:'"Prima è meglio... ma non ho fretta" — ottimista'},{d:'S',t:'"Dipende, non voglio che sia un problema per voi"'},{d:'C',t:'"Dipende dal materiale — quali sono i vostri tempi reali?"'}]
+    },
+    { num:'05', quando:'ALLA FINE',
+      domanda:"Cosa le serve per decidere?",
+      dici:'"Come vuole procedere da qui? Cosa le serve per decidere?"',
+      osserva:'Ti dice esattamente dove si trova nel processo',
+      signals:[{d:'D',t:'"Facciamo — quando possiamo firmare?"'},{d:'I',t:'"Mi fido, ma voglio mostrarlo a mia moglie"'},{d:'S',t:'"Ho bisogno di pensarci... ci risentiremo"'},{d:'C',t:'"Ho ancora domande tecniche da chiarire"'}]
     }
-  );
-}
+  ];
 
-function showProfile(data,name){
-  var dom=data.dominant;var pcts=data.scores||{D:25,I:25,S:25,C:25};
-  var doH=(data.do||[]).map(function(t){return'<div class="tip-row"><span>✅</span><span>'+t+'</span></div>';}).join('');
-  var dnH=(data.dont||[]).map(function(t){return'<div class="tip-row"><span>❌</span><span>'+t+'</span></div>';}).join('');
-  document.getElementById('resultBox').innerHTML=
-    '<div class="result-box"><div class="result-header"><div><div class="result-name">'+name+'</div><div class="result-sub">Profilo '+dom+' — '+data.dominantName+'</div></div><div class="big-badge '+dom+'">'+dom+'</div></div>'
-    +'<div class="res-bars">'+['D','I','S','C'].map(function(d){return'<div class="res-row"><div class="res-lbl '+d+'">'+d+'</div><div class="res-track"><div class="res-fill '+d+'" id="rf'+d+'"></div></div><div class="res-pct" id="rp'+d+'">0%</div></div>';}).join('')+'</div>'
-    +'<div class="res-cards">'
-    +'<div class="res-card"><div class="res-card-title">🎯 Chi è</div><div class="res-card-body">'+data.who+'</div></div>'
-    +'<div class="res-card"><div class="res-card-title">🗣️ Come comunicare</div><div class="res-card-body">'+data.communicate+'</div></div>'
-    +'<div class="res-card"><div class="res-card-title">💼 Come chiudere la vendita</div><div class="res-card-body">'+data.sell+'</div></div>'
-    +'<div class="res-card"><div class="res-card-title">✅ Cosa fare</div>'+doH+'</div>'
-    +'<div class="res-card"><div class="res-card-title">❌ Cosa evitare</div>'+dnH+'</div>'
-    +'<div class="res-card"><div class="res-card-title">⚡ Frase di chiusura</div><div class="phrase-box">'+data.closingPhrase+'</div></div>'
-    +'</div>'
-    +'<div class="result-actions">'
-    +'<button class="btn btn-ghost" onclick="resetAll()">🔄 Nuovo</button>'
-    +'<button class="btn btn-primary" onclick="goPhase(4)">📋 Strategia preventivo →</button>'
-    +'</div></div>';
-  setTimeout(function(){['D','I','S','C'].forEach(function(d){var p=pcts[d]||0;document.getElementById('rf'+d).style.width=p+'%';document.getElementById('rp'+d).textContent=p+'%';});},100);
-}
+  // ── DOMANDE FASE 1 ────────────────────────────────────────────────
+  var q1 = [
+    { q:"Come ti ha accolto?", opts:[{d:'D',t:"Diretto, ti ha subito detto cosa vuole"},{d:'I',t:"Caloroso, sorridente, chiacchierone"},{d:'S',t:"Cordiale ma riservato, ti ha offerto qualcosa"},{d:'C',t:"Formale e preciso, senza fronzoli"}] },
+    { q:"Come parla?", opts:[{d:'D',t:"Veloce, va al punto, poche parole"},{d:'I',t:"Racconta storie, entusiasta, salta argomenti"},{d:'S',t:"Calmo, ascolta più che parlare"},{d:'C',t:"Preciso, domande tecniche specifiche"}] },
+    { q:"Cosa ha guardato/chiesto per primo?", opts:[{d:'D',t:"Prezzi o tempi di consegna"},{d:'I',t:"Foto dei lavori o colori disponibili"},{d:'S',t:"Garanzie o referenze di altri clienti"},{d:'C',t:"Schede tecniche o certificazioni"}] },
+    { q:"Atteggiamento generale?", opts:[{d:'D',t:"Deciso, sa cosa vuole, non perde tempo"},{d:'I',t:"Entusiasta, ottimista, simpatico"},{d:'S',t:"Riflessivo, cauto, vuole capire bene"},{d:'C',t:"Analitico, fa molte domande precise"}] }
+  ];
 
-// ── GENERA PREVENTIVO ───────────────────────────────────────────────────────
-function generatePreventivo(){
-  document.getElementById('loadingPrev').classList.add('active');
-  document.getElementById('prevBox').innerHTML='';
-  if(!lastResult){document.getElementById('loadingPrev').classList.remove('active');document.getElementById('prevBox').innerHTML='<div class="section-desc">Prima genera il profilo nella Fase 3.</div>';return;}
-  var name=document.getElementById('clientName').value||'Cliente';
-  var dom=lastResult.dominant;
-  var prompt='Sei un esperto di vendita serramenti e comunicazione persuasiva.\n\nHai analizzato il cliente "'+name+'" con profilo DISC: '+dom+' ('+lastResult.dominantName+').\n\nDescrizione: '+lastResult.who+'\n\nGenera una strategia specifica per presentare e far accettare il preventivo a questa persona.\n\nRispondi SOLO con JSON:\n{"intro":"come introdurre il preventivo 2-3 frasi","presentationTips":[{"icon":"emoji","title":"titolo","desc":"descrizione pratica"}],"objections":[{"obj":"obiezione tipica di questo profilo","reply":"risposta efficace"}],"script":"testo completo di come presentare il preventivo, in prima persona, come se fossi tu a parlare (6-8 frasi)","followUpTiming":"quando e come fare follow-up","followUpMessage":"messaggio di follow-up da mandare"}';
-  callAPI(prompt,
-    function(data){document.getElementById('loadingPrev').classList.remove('active');showPreventivo(data,name,dom);},
-    function(){
-      document.getElementById('loadingPrev').classList.remove('active');
-      var fb={
-        intro:'Configura la API Key per la strategia preventivo personalizzata con AI.',
-        presentationTips:[{icon:'🔑',title:'API Key necessaria',desc:'Aggiungi la chiave Anthropic per sbloccare questa funzione.'}],
-        objections:[{obj:'Non ho la API Key',reply:'Vai in cima alla pagina e inserisci la chiave sk-ant-...'}],
-        script:'Con la API Key configurata, qui troverai un testo completo da usare quando presenti il preventivo al cliente, adattato al suo profilo '+dom+'.',
-        followUpTiming:'Da configurare con API Key',
-        followUpMessage:'Da configurare con API Key'
+  // ── BOTTONI FASE 2 ────────────────────────────────────────────────
+  var liveBtns = [
+    [{d:'D',l:'Va al punto'},{d:'I',l:'Racconta storie'},{d:'S',l:'Ascolta in silenzio'},{d:'C',l:'Domande tecniche'}],
+    [{d:'D',l:'Negozia subito'},{d:'I',l:"Dice 'vedremo'"},{d:'S',l:'Sente la famiglia'},{d:'C',l:'Vuole confronto'}],
+    [{d:'D',l:'Vuole risultati'},{d:'I',l:'Guarda foto/estetica'},{d:'S',l:'Chiede garanzie'},{d:'C',l:'Legge schede'}],
+    [{d:'D',l:'Decide subito'},{d:'I',l:"Entusiasta ma 'ci penso'"},{d:'S',l:'Prende tempo'},{d:'C',l:'Vuole più dati'}]
+  ];
+
+  // ── STILI ─────────────────────────────────────────────────────────
+  var CSS = `
+    #disc-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:99998;display:flex;align-items:flex-end;justify-content:center;}
+    #disc-panel{background:#0c1018;border:1px solid rgba(255,255,255,0.1);border-radius:20px 20px 0 0;width:100%;max-width:640px;height:92vh;display:flex;flex-direction:column;overflow:hidden;position:relative;}
+    #disc-panel *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    .disc-header{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+    .disc-header-left{display:flex;align-items:center;gap:10px;}
+    .disc-logo{width:32px;height:32px;background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(124,77,255,0.2));border:1px solid rgba(0,212,255,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+    .disc-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#dce8f5;}
+    .disc-client-name{font-family:monospace;font-size:10px;color:#00d4ff;letter-spacing:1px;}
+    .disc-close{background:rgba(255,255,255,0.08);border:none;color:#8899aa;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;}
+    .disc-body{flex:1;overflow-y:auto;padding:16px 20px 20px;-webkit-overflow-scrolling:touch;}
+    /* Compass */
+    .disc-compass{position:sticky;top:0;z-index:10;background:#0c1018;border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:14px 18px;margin-bottom:16px;transition:border-color 0.4s,box-shadow 0.4s;}
+    .disc-compass.D{border-color:rgba(255,61,61,0.5);box-shadow:0 0 24px rgba(255,61,61,0.1);}
+    .disc-compass.I{border-color:rgba(255,179,0,0.5);box-shadow:0 0 24px rgba(255,179,0,0.1);}
+    .disc-compass.S{border-color:rgba(0,230,118,0.5);box-shadow:0 0 24px rgba(0,230,118,0.1);}
+    .disc-compass.C{border-color:rgba(41,121,255,0.5);box-shadow:0 0 24px rgba(41,121,255,0.1);}
+    .disc-compass-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+    .disc-compass-label{font-family:monospace;font-size:9px;color:#445566;letter-spacing:2px;text-transform:uppercase;}
+    .disc-pill{padding:3px 12px;border-radius:20px;font-family:monospace;font-size:12px;font-weight:700;}
+    .disc-pill.none{background:#111620;color:#445566;border:1px solid rgba(255,255,255,0.06);}
+    .disc-pill.D{background:rgba(255,61,61,0.2);color:#ff3d3d;border:1px solid rgba(255,61,61,0.3);}
+    .disc-pill.I{background:rgba(255,179,0,0.2);color:#ffb300;border:1px solid rgba(255,179,0,0.3);}
+    .disc-pill.S{background:rgba(0,230,118,0.2);color:#00e676;border:1px solid rgba(0,230,118,0.3);}
+    .disc-pill.C{background:rgba(41,121,255,0.2);color:#2979ff;border:1px solid rgba(41,121,255,0.3);}
+    .disc-compass-name{font-size:12px;font-weight:700;color:#8899aa;}
+    .disc-compass-tip{font-size:12px;color:#8899aa;line-height:1.5;}
+    .disc-compass-tip strong{color:#dce8f5;}
+    .disc-mini-bars{display:flex;gap:5px;height:20px;margin-top:8px;}
+    .disc-mb-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;}
+    .disc-mb-track{width:100%;background:#111620;border-radius:3px;height:14px;overflow:hidden;position:relative;}
+    .disc-mb-fill{position:absolute;bottom:0;left:0;right:0;border-radius:3px;transition:height 0.5s;}
+    .disc-mb-fill.D{background:#ff3d3d;}.disc-mb-fill.I{background:#ffb300;}.disc-mb-fill.S{background:#00e676;}.disc-mb-fill.C{background:#2979ff;}
+    .disc-mb-label{font-family:monospace;font-size:7px;color:#445566;}
+    /* Phase nav */
+    .disc-phases{display:flex;gap:5px;margin-bottom:16px;overflow-x:auto;}
+    .disc-phase-btn{flex:1;min-width:0;padding:10px 4px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:#0c1018;color:#8899aa;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;cursor:pointer;text-align:center;white-space:nowrap;min-height:44px;-webkit-appearance:none;touch-action:manipulation;}
+    .disc-phase-btn.active{background:rgba(0,212,255,0.08);border-color:#00d4ff;color:#00d4ff;}
+    .disc-phase-btn.done{border-color:rgba(0,230,118,0.4);color:#00e676;}
+    /* Section */
+    .disc-section{display:none;}.disc-section.active{display:block;}
+    .disc-section-title{font-family:monospace;font-size:9px;color:#00d4ff;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;}
+    .disc-desc{font-size:12px;color:#8899aa;line-height:1.6;margin-bottom:16px;padding:10px 14px;background:#111620;border-radius:8px;border-left:3px solid #00d4ff;}
+    /* Guide cards */
+    .disc-guide-card{background:#0c1018;border:1px solid rgba(255,255,255,0.06);border-radius:12px;margin-bottom:10px;overflow:hidden;}
+    .disc-guide-header{padding:14px 16px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;width:100%;background:none;border:none;text-align:left;color:#dce8f5;-webkit-appearance:none;touch-action:manipulation;}
+    .disc-guide-num{width:28px;height:28px;border-radius:7px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:11px;font-weight:700;color:#00d4ff;flex-shrink:0;}
+    .disc-guide-info{flex:1;}
+    .disc-guide-q{font-size:13px;font-weight:700;line-height:1.4;margin-bottom:3px;}
+    .disc-guide-quando{font-size:10px;color:#445566;font-family:monospace;letter-spacing:1px;}
+    .disc-guide-arrow{font-size:11px;color:#445566;flex-shrink:0;margin-top:5px;transition:transform 0.2s;}
+    .disc-guide-card.open .disc-guide-arrow{transform:rotate(180deg);}
+    .disc-guide-body{display:none;padding:0 16px 16px;border-top:1px solid rgba(255,255,255,0.05);}
+    .disc-guide-card.open .disc-guide-body{display:block;}
+    .disc-guide-body-inner{padding-top:12px;}
+    .disc-guide-label{font-size:10px;font-weight:700;font-family:monospace;letter-spacing:1px;margin-bottom:6px;}
+    .disc-guide-label.accent{color:#00d4ff;}.disc-guide-label.muted{color:#8899aa;}
+    .disc-guide-say{background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.15);border-radius:7px;padding:8px 12px;font-size:12px;font-style:italic;color:#dce8f5;line-height:1.5;margin-bottom:12px;}
+    .disc-guide-signals{display:flex;flex-direction:column;gap:5px;}
+    .disc-guide-signal{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:7px;background:#111620;border:1px solid rgba(255,255,255,0.05);font-size:11px;color:#8899aa;line-height:1.4;}
+    .disc-sdot{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px;}
+    .disc-sdot.D{background:rgba(255,61,61,0.2);color:#ff3d3d;}.disc-sdot.I{background:rgba(255,179,0,0.2);color:#ffb300;}.disc-sdot.S{background:rgba(0,230,118,0.2);color:#00e676;}.disc-sdot.C{background:rgba(41,121,255,0.2);color:#2979ff;}
+    /* Fase 1 options */
+    .disc-signal-card{background:#0c1018;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px;margin-bottom:10px;}
+    .disc-signal-q{font-size:13px;font-weight:700;margin-bottom:10px;color:#dce8f5;line-height:1.4;}
+    .disc-signal-opts{display:flex;flex-direction:column;gap:7px;}
+    .disc-opt{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:10px;background:#111620;border:2px solid transparent;cursor:pointer;font-size:13px;color:#8899aa;width:100%;text-align:left;-webkit-appearance:none;font-family:'Syne',sans-serif;font-weight:500;min-height:50px;line-height:1.4;touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,212,255,0.1);}
+    .disc-opt:active{transform:scale(0.98);background:#1a2030;}
+    .disc-opt.sel{color:#dce8f5;}
+    .disc-opt.sel.D{border-color:#ff3d3d;background:rgba(255,61,61,0.08);}
+    .disc-opt.sel.I{border-color:#ffb300;background:rgba(255,179,0,0.08);}
+    .disc-opt.sel.S{border-color:#00e676;background:rgba(0,230,118,0.08);}
+    .disc-opt.sel.C{border-color:#2979ff;background:rgba(41,121,255,0.08);}
+    .disc-opt-dot{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:700;flex-shrink:0;}
+    .disc-opt-dot.D{background:rgba(255,61,61,0.2);color:#ff3d3d;}.disc-opt-dot.I{background:rgba(255,179,0,0.2);color:#ffb300;}.disc-opt-dot.S{background:rgba(0,230,118,0.2);color:#00e676;}.disc-opt-dot.C{background:rgba(41,121,255,0.2);color:#2979ff;}
+    /* Fase 2 live btns */
+    .disc-live-title{font-size:11px;font-weight:700;color:#8899aa;margin:14px 0 7px;letter-spacing:0.5px;}
+    .disc-live-btns{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:4px;}
+    .disc-live-btn{padding:10px 13px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:#0c1018;color:#8899aa;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;-webkit-appearance:none;min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,212,255,0.1);}
+    .disc-live-btn:active{transform:scale(0.95);}
+    .disc-live-btn.fired.D{border-color:#ff3d3d;color:#ff3d3d;background:rgba(255,61,61,0.08);}
+    .disc-live-btn.fired.I{border-color:#ffb300;color:#ffb300;background:rgba(255,179,0,0.08);}
+    .disc-live-btn.fired.S{border-color:#00e676;color:#00e676;background:rgba(0,230,118,0.08);}
+    .disc-live-btn.fired.C{border-color:#2979ff;color:#2979ff;background:rgba(41,121,255,0.08);}
+    .disc-bdot{font-family:monospace;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:700;}
+    .disc-bdot.D{background:rgba(255,61,61,0.2);color:#ff3d3d;}.disc-bdot.I{background:rgba(255,179,0,0.2);color:#ffb300;}.disc-bdot.S{background:rgba(0,230,118,0.2);color:#00e676;}.disc-bdot.C{background:rgba(41,121,255,0.2);color:#2979ff;}
+    /* Result cards */
+    .disc-result-box{background:#0c1018;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px;margin-bottom:12px;}
+    .disc-result-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;}
+    .disc-result-name{font-size:18px;font-weight:900;color:#dce8f5;margin-bottom:2px;}
+    .disc-result-sub{font-size:11px;color:#8899aa;}
+    .disc-big-badge{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;font-family:monospace;flex-shrink:0;}
+    .disc-big-badge.D{background:rgba(255,61,61,0.15);color:#ff3d3d;border:2px solid rgba(255,61,61,0.3);}
+    .disc-big-badge.I{background:rgba(255,179,0,0.15);color:#ffb300;border:2px solid rgba(255,179,0,0.3);}
+    .disc-big-badge.S{background:rgba(0,230,118,0.15);color:#00e676;border:2px solid rgba(0,230,118,0.3);}
+    .disc-big-badge.C{background:rgba(41,121,255,0.15);color:#2979ff;border:2px solid rgba(41,121,255,0.3);}
+    .disc-res-bars{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+    .disc-res-row{display:flex;align-items:center;gap:10px;}
+    .disc-res-lbl{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;font-weight:700;flex-shrink:0;}
+    .disc-res-lbl.D{background:rgba(255,61,61,0.2);color:#ff3d3d;}.disc-res-lbl.I{background:rgba(255,179,0,0.2);color:#ffb300;}.disc-res-lbl.S{background:rgba(0,230,118,0.2);color:#00e676;}.disc-res-lbl.C{background:rgba(41,121,255,0.2);color:#2979ff;}
+    .disc-res-track{flex:1;background:#111620;border-radius:3px;height:6px;overflow:hidden;}
+    .disc-res-fill{height:100%;border-radius:3px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1);width:0;}
+    .disc-res-fill.D{background:linear-gradient(90deg,rgba(255,61,61,0.4),#ff3d3d);}
+    .disc-res-fill.I{background:linear-gradient(90deg,rgba(255,179,0,0.4),#ffb300);}
+    .disc-res-fill.S{background:linear-gradient(90deg,rgba(0,230,118,0.4),#00e676);}
+    .disc-res-fill.C{background:linear-gradient(90deg,rgba(41,121,255,0.4),#2979ff);}
+    .disc-res-pct{font-family:monospace;font-size:10px;color:#8899aa;width:28px;text-align:right;flex-shrink:0;}
+    .disc-res-cards{display:flex;flex-direction:column;gap:10px;}
+    .disc-res-card{background:#111620;border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:14px;}
+    .disc-res-card-title{font-family:monospace;font-size:9px;color:#00d4ff;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;}
+    .disc-res-card-body{font-size:12px;color:#8899aa;line-height:1.7;}
+    .disc-tip-row{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:#8899aa;line-height:1.5;margin-bottom:5px;}
+    .disc-phrase-box{background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:12px;font-size:13px;font-style:italic;color:#00d4ff;line-height:1.6;margin-top:4px;}
+    /* Prev cards */
+    .disc-prev-item{display:flex;align-items:flex-start;gap:10px;padding:12px;background:#111620;border-radius:9px;margin-bottom:8px;}
+    .disc-prev-icon{font-size:18px;flex-shrink:0;}
+    .disc-prev-title{font-size:12px;font-weight:700;color:#dce8f5;margin-bottom:3px;}
+    .disc-prev-desc{font-size:12px;color:#8899aa;line-height:1.5;}
+    .disc-prev-script{background:rgba(255,179,0,0.04);border:1px solid rgba(255,179,0,0.15);border-radius:9px;padding:14px;margin-bottom:8px;}
+    .disc-prev-script-title{font-family:monospace;font-size:9px;color:#ffb300;letter-spacing:2px;margin-bottom:8px;}
+    .disc-prev-script-text{font-size:12px;font-style:italic;color:#dce8f5;line-height:1.7;}
+    /* Bottom bar */
+    .disc-bottom-bar{padding:12px 20px;border-top:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;background:#0c1018;}
+    .disc-counter{font-family:monospace;font-size:10px;color:#445566;}
+    .disc-btn{display:inline-flex;align-items:center;gap:6px;padding:11px 20px;border-radius:10px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;-webkit-appearance:none;min-height:44px;}
+    .disc-btn-primary{background:linear-gradient(135deg,#00d4ff,#7c4dff);color:#000;}
+    .disc-btn-primary:active{transform:scale(0.97);}
+    .disc-btn-ghost{background:#111620;color:#8899aa;border:1px solid rgba(255,255,255,0.07);}
+    .disc-btn-ghost:active{transform:scale(0.97);}
+    .disc-btn-save{background:rgba(0,230,118,0.15);color:#00e676;border:1px solid rgba(0,230,118,0.3);}
+    /* Loading */
+    .disc-loading{display:none;flex-direction:column;align-items:center;gap:14px;padding:40px 0;}
+    .disc-loading.active{display:flex;}
+    .disc-loading-ring{width:44px;height:44px;border:2px solid rgba(255,255,255,0.06);border-top-color:#00d4ff;border-radius:50%;animation:disc-spin 1s linear infinite;}
+    @keyframes disc-spin{to{transform:rotate(360deg);}}
+    .disc-loading-txt{font-family:monospace;font-size:11px;color:#8899aa;letter-spacing:1px;}
+    /* Saved badge */
+    .disc-saved-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:rgba(0,230,118,0.1);border:1px solid rgba(0,230,118,0.2);border-radius:6px;font-size:11px;color:#00e676;font-family:monospace;}
+    /* Storico */
+    .disc-history-item{background:#111620;border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:10px 12px;margin-bottom:7px;display:flex;align-items:center;gap:10px;}
+    .disc-history-date{font-family:monospace;font-size:10px;color:#445566;flex-shrink:0;}
+    .disc-history-channel{font-size:11px;color:#8899aa;}
+  `;
+
+  // ── INJECT CSS ────────────────────────────────────────────────────
+  function injectCSS() {
+    if (document.getElementById('disc-module-css')) return;
+    var style = document.createElement('style');
+    style.id = 'disc-module-css';
+    style.textContent = CSS;
+    document.head.appendChild(style);
+  }
+
+  // ── RESET STATE ───────────────────────────────────────────────────
+  function resetState() {
+    scores = { D:0, I:0, S:0, C:0 };
+    p1answers = {};
+    p2events = [];
+    lastResult = null;
+  }
+
+  // ── GET API KEY ───────────────────────────────────────────────────
+  function getApiKey() {
+    return localStorage.getItem(API_KEY_STORAGE) || '';
+  }
+
+  // ── GET PROJECT ───────────────────────────────────────────────────
+  function getProject() {
+    if (!currentProjectId) return null;
+    if (typeof state !== 'undefined' && state.projects) {
+      return state.projects[currentProjectId] || Object.values(state.projects).find(function(p){ return p.id === currentProjectId; });
+    }
+    return null;
+  }
+
+  // ── GET CLIENT NAME ───────────────────────────────────────────────
+  function getClientName() {
+    var proj = getProject();
+    if (proj) {
+      return (proj.clientData && proj.clientData.nomeCompleto) ||
+             (proj.clientData && proj.clientData.nome) ||
+             proj.client || proj.nome || 'Cliente';
+    }
+    return 'Cliente';
+  }
+
+  // ── UPDATE COMPASS ────────────────────────────────────────────────
+  function updateCompass() {
+    var tot = scores.D + scores.I + scores.S + scores.C;
+    if (!tot) return;
+    var dom = 'D';
+    ['I','S','C'].forEach(function(d){ if (scores[d] > scores[dom]) dom = d; });
+    var el = document.getElementById('disc-compass');
+    if (!el) return;
+    el.className = 'disc-compass ' + dom;
+    var pill = document.getElementById('disc-compass-pill');
+    if (pill) { pill.className = 'disc-pill ' + dom; pill.textContent = dom; }
+    var name = document.getElementById('disc-compass-name');
+    if (name) name.textContent = tips[dom].name;
+    var tip = document.getElementById('disc-compass-tip');
+    if (tip) tip.innerHTML = tips[dom].tip;
+    ['D','I','S','C'].forEach(function(d) {
+      var mb = document.getElementById('disc-mb-' + d);
+      if (mb) mb.style.height = Math.round(scores[d] / tot * 100) + '%';
+    });
+  }
+
+  // ── GO PHASE ──────────────────────────────────────────────────────
+  function goPhase(n) {
+    [0,1,2,3,4].forEach(function(i) {
+      var sec = document.getElementById('disc-phase-' + i);
+      if (sec) sec.classList.toggle('active', i === n);
+      var btn = document.getElementById('disc-pnav-' + i);
+      if (btn) {
+        btn.classList.remove('active','done');
+        if (i === n) btn.classList.add('active');
+        else if (i < n) btn.classList.add('done');
+      }
+    });
+    if (n === 3) generateProfile();
+    if (n === 4) generatePreventivo();
+    var body = document.getElementById('disc-body');
+    if (body) body.scrollTop = 0;
+  }
+  window._discGoPhase = goPhase;
+
+  // ── TOGGLE GUIDE ──────────────────────────────────────────────────
+  window._discToggleGuide = function(i) {
+    var card = document.getElementById('disc-gc-' + i);
+    if (card) card.classList.toggle('open');
+  };
+
+  // ── SELECT FASE 1 ─────────────────────────────────────────────────
+  window._discSelP1 = function(qi, oi, disc, text) {
+    if (p1answers[qi]) scores[p1answers[qi].disc] = Math.max(0, scores[p1answers[qi].disc] - 2);
+    p1answers[qi] = { oi:oi, disc:disc, text:text };
+    scores[disc] = (scores[disc] || 0) + 2;
+    var opts = document.getElementById('disc-so-' + qi);
+    if (opts) opts.querySelectorAll('.disc-opt').forEach(function(el, i) {
+      el.className = 'disc-opt' + (i === oi ? ' sel ' + disc : '');
+    });
+    var ctr = document.getElementById('disc-p1counter');
+    if (ctr) ctr.textContent = Object.keys(p1answers).length + ' segnali';
+    updateCompass();
+  };
+
+  // ── FIRE FASE 2 ───────────────────────────────────────────────────
+  window._discFireBtn = function(gi, bi, disc, label) {
+    scores[disc] = (scores[disc] || 0) + 3;
+    p2events.push({ disc:disc, label:label });
+    var btn = document.getElementById('disc-lb-' + gi + '_' + bi);
+    if (btn) {
+      btn.classList.add('fired', disc);
+      setTimeout(function(){ btn.classList.remove('fired','D','I','S','C'); }, 600);
+    }
+    var ctr = document.getElementById('disc-p2counter');
+    if (ctr) ctr.textContent = p2events.length + ' segnali';
+    updateCompass();
+  };
+
+  // ── API CALL ──────────────────────────────────────────────────────
+  function callAPI(prompt, onSuccess, onFallback) {
+    var key = getApiKey();
+    if (!key) { onFallback(); return; }
+    fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1200,
+        messages: [{ role:'user', content:prompt }]
+      })
+    }).then(function(r){ return r.json(); })
+    .then(function(data) {
+      var txt = data.content && data.content[0] ? data.content[0].text : '';
+      onSuccess(JSON.parse(txt.replace(/```json|```/g,'').trim()));
+    }).catch(function(e){ console.error('[DISC]', e); onFallback(); });
+  }
+
+  // ── GENERATE PROFILE ──────────────────────────────────────────────
+  function generateProfile() {
+    var loadEl = document.getElementById('disc-loading-3');
+    var resEl = document.getElementById('disc-result-box');
+    if (loadEl) loadEl.classList.add('active');
+    if (resEl) resEl.innerHTML = '';
+    var name = getClientName();
+    var tot = scores.D + scores.I + scores.S + scores.C || 1;
+    var dom = 'D'; ['I','S','C'].forEach(function(d){ if (scores[d] > scores[dom]) dom = d; });
+    var ctx = 'Fase 1:\n' + Object.values(p1answers).map(function(a){ return '- ' + a.text + ' [' + a.disc + ']'; }).join('\n')
+      + '\n\nFase 2:\n' + p2events.map(function(e){ return '- ' + e.label + ' [' + e.disc + ']'; }).join('\n')
+      + '\n\nPunteggi: D=' + scores.D + ' I=' + scores.I + ' S=' + scores.S + ' C=' + scores.C;
+    var prompt = 'Esperto DISC per vendita serramenti e finestre.\n\nCliente "' + name + '":\n' + ctx + '\n\nRispondi SOLO con JSON valido:\n{"dominant":"D|I|S|C","dominantName":"nome italiano","scores":{"D":0-100,"I":0-100,"S":0-100,"C":0-100},"who":"chi è 2-3 frasi","communicate":"come comunicare 2-3 frasi","sell":"come vendere serramenti 3-4 frasi","do":["fare 1","fare 2","fare 3"],"dont":["evitare 1","evitare 2","evitare 3"],"closingPhrase":"frase di chiusura specifica"}';
+    callAPI(prompt,
+      function(data) {
+        lastResult = data;
+        if (loadEl) loadEl.classList.remove('active');
+        renderProfile(data, name);
+      },
+      function() {
+        var fb = {
+          dominant: dom, dominantName: tips[dom].name,
+          scores: { D:Math.round(scores.D/tot*100), I:Math.round(scores.I/tot*100), S:Math.round(scores.S/tot*100), C:Math.round(scores.C/tot*100) },
+          who: 'Profilo ' + dom + ' rilevato. Configura API Key per analisi completa.',
+          communicate: tips[dom].tip.replace(/<[^>]+>/g,''),
+          sell: 'Aggiungi API Key Anthropic per la strategia personalizzata.',
+          do: ['Usa i consigli della bussola','Torna alle domande guida','Raccogli più segnali nella fase 2'],
+          dont: ['Ignorare il profilo rilevato','Usare lo stesso approccio con tutti','Fare pressione senza conoscere il profilo'],
+          closingPhrase: '"Configura API Key per la frase di chiusura personalizzata."'
+        };
+        lastResult = fb;
+        if (loadEl) loadEl.classList.remove('active');
+        renderProfile(fb, name);
+      }
+    );
+  }
+
+  function renderProfile(data, name) {
+    var el = document.getElementById('disc-result-box');
+    if (!el) return;
+    var dom = data.dominant;
+    var pcts = data.scores || { D:25, I:25, S:25, C:25 };
+    var doH = (data.do || []).map(function(t){ return '<div class="disc-tip-row"><span>✅</span><span>' + t + '</span></div>'; }).join('');
+    var dnH = (data.dont || []).map(function(t){ return '<div class="disc-tip-row"><span>❌</span><span>' + t + '</span></div>'; }).join('');
+    el.innerHTML =
+      '<div class="disc-result-box">'
+      + '<div class="disc-result-header"><div><div class="disc-result-name">' + name + '</div><div class="disc-result-sub">Profilo ' + dom + ' — ' + data.dominantName + '</div></div>'
+      + '<div class="disc-big-badge ' + dom + '">' + dom + '</div></div>'
+      + '<div class="disc-res-bars">'
+      + ['D','I','S','C'].map(function(d){ return '<div class="disc-res-row"><div class="disc-res-lbl ' + d + '">' + d + '</div><div class="disc-res-track"><div class="disc-res-fill ' + d + '" id="disc-rf-' + d + '"></div></div><div class="disc-res-pct" id="disc-rp-' + d + '">0%</div></div>'; }).join('')
+      + '</div>'
+      + '<div class="disc-res-cards">'
+      + '<div class="disc-res-card"><div class="disc-res-card-title">🎯 Chi è</div><div class="disc-res-card-body">' + data.who + '</div></div>'
+      + '<div class="disc-res-card"><div class="disc-res-card-title">🗣️ Come comunicare</div><div class="disc-res-card-body">' + data.communicate + '</div></div>'
+      + '<div class="disc-res-card"><div class="disc-res-card-title">💼 Come chiudere la vendita</div><div class="disc-res-card-body">' + data.sell + '</div></div>'
+      + '<div class="disc-res-card"><div class="disc-res-card-title">✅ Cosa fare</div>' + doH + '</div>'
+      + '<div class="disc-res-card"><div class="disc-res-card-title">❌ Cosa evitare</div>' + dnH + '</div>'
+      + '<div class="disc-res-card"><div class="disc-res-card-title">⚡ Frase di chiusura</div><div class="disc-phrase-box">' + data.closingPhrase + '</div></div>'
+      + '</div></div>';
+    setTimeout(function() {
+      ['D','I','S','C'].forEach(function(d) {
+        var p = pcts[d] || 0;
+        var f = document.getElementById('disc-rf-' + d); if (f) f.style.width = p + '%';
+        var t = document.getElementById('disc-rp-' + d); if (t) t.textContent = p + '%';
+      });
+    }, 100);
+  }
+
+  // ── GENERATE PREVENTIVO ───────────────────────────────────────────
+  function generatePreventivo() {
+    var loadEl = document.getElementById('disc-loading-4');
+    var boxEl = document.getElementById('disc-prev-box');
+    if (loadEl) loadEl.classList.add('active');
+    if (boxEl) boxEl.innerHTML = '';
+    if (!lastResult) {
+      if (loadEl) loadEl.classList.remove('active');
+      if (boxEl) boxEl.innerHTML = '<div class="disc-desc">Prima genera il profilo nella Fase 3.</div>';
+      return;
+    }
+    var name = getClientName();
+    var dom = lastResult.dominant;
+    var prompt = 'Esperto vendita serramenti e comunicazione persuasiva.\n\nCliente "' + name + '" profilo DISC: ' + dom + ' (' + lastResult.dominantName + ').\n\n' + lastResult.who + '\n\nRispondi SOLO con JSON:\n{"intro":"come introdurre il preventivo 2-3 frasi","presentationTips":[{"icon":"emoji","title":"titolo","desc":"descrizione pratica"}],"objections":[{"obj":"obiezione tipica","reply":"risposta efficace"}],"script":"testo completo presentazione preventivo in prima persona 6-8 frasi","followUpTiming":"quando fare follow-up","followUpMessage":"messaggio follow-up"}';
+    callAPI(prompt,
+      function(data) { if (loadEl) loadEl.classList.remove('active'); renderPreventivo(data, name, dom); },
+      function() {
+        if (loadEl) loadEl.classList.remove('active');
+        renderPreventivo({
+          intro: 'Configura API Key per la strategia preventivo personalizzata con AI.',
+          presentationTips: [{ icon:'🔑', title:'API Key necessaria', desc:'Aggiungi la chiave Anthropic per sbloccare questa funzione.' }],
+          objections: [{ obj:'Non ho la API Key', reply:'Vai nelle impostazioni e inserisci la chiave sk-ant-...' }],
+          script: 'Con API Key configurata, qui troverai lo script completo da usare con il cliente, adattato al profilo ' + dom + '.',
+          followUpTiming: 'Configura API Key', followUpMessage: 'Configura API Key'
+        }, name, dom);
+      }
+    );
+  }
+
+  function renderPreventivo(data, name, dom) {
+    var el = document.getElementById('disc-prev-box');
+    if (!el) return;
+    var tipsH = (data.presentationTips || []).map(function(t) {
+      return '<div class="disc-prev-item"><div class="disc-prev-icon">' + t.icon + '</div><div><div class="disc-prev-title">' + t.title + '</div><div class="disc-prev-desc">' + t.desc + '</div></div></div>';
+    }).join('');
+    var objH = (data.objections || []).map(function(o) {
+      return '<div class="disc-prev-item"><div class="disc-prev-icon">💬</div><div><div class="disc-prev-title">«' + o.obj + '»</div><div class="disc-prev-desc"><strong style="color:#dce8f5">Tu:</strong> ' + o.reply + '</div></div></div>';
+    }).join('');
+    el.innerHTML =
+      '<div class="disc-result-box">'
+      + '<div class="disc-result-header"><div><div class="disc-result-name">' + name + '</div><div class="disc-result-sub">Strategia preventivo — Profilo ' + dom + '</div></div><div class="disc-big-badge ' + dom + '">' + dom + '</div></div>'
+      + '<div class="disc-res-card" style="margin-bottom:10px"><div class="disc-res-card-title">📌 Come introdurlo</div><div class="disc-res-card-body">' + data.intro + '</div></div>'
+      + '<div class="disc-section-title" style="margin:12px 0 8px">Come presentarlo</div>' + tipsH
+      + '<div class="disc-section-title" style="margin:12px 0 8px">Obiezioni tipiche</div>' + objH
+      + '<div class="disc-section-title" style="margin:12px 0 8px">Script — cosa dire</div>'
+      + '<div class="disc-prev-script"><div class="disc-prev-script-title">// TESTO DA USARE CON IL CLIENTE</div><div class="disc-prev-script-text">' + data.script + '</div></div>'
+      + '<div class="disc-res-card"><div class="disc-res-card-title">⏰ Follow-up — ' + data.followUpTiming + '</div><div class="disc-res-card-body" style="font-style:italic">' + data.followUpMessage + '</div></div>'
+      + '</div>';
+  }
+
+  // ── SAVE TO PROJECT ───────────────────────────────────────────────
+  function saveToProject() {
+    if (!lastResult || !currentProjectId) return false;
+    var proj = getProject();
+    if (!proj) return false;
+    if (!proj.clientData) proj.clientData = {};
+    var contact = {
+      date: new Date().toISOString(),
+      channel: 'live',
+      signals: p2events.length + Object.keys(p1answers).length,
+      notes: ''
+    };
+    if (!proj.clientData.disc) {
+      proj.clientData.disc = {
+        dominant: lastResult.dominant,
+        dominantName: lastResult.dominantName,
+        scores: lastResult.scores,
+        who: lastResult.who,
+        communicate: lastResult.communicate,
+        sell: lastResult.sell,
+        closingPhrase: lastResult.closingPhrase,
+        contacts: [],
+        updatedAt: new Date().toISOString()
       };
-      showPreventivo(fb,name,dom);
+    } else {
+      proj.clientData.disc.dominant = lastResult.dominant;
+      proj.clientData.disc.dominantName = lastResult.dominantName;
+      proj.clientData.disc.scores = lastResult.scores;
+      proj.clientData.disc.who = lastResult.who;
+      proj.clientData.disc.communicate = lastResult.communicate;
+      proj.clientData.disc.sell = lastResult.sell;
+      proj.clientData.disc.closingPhrase = lastResult.closingPhrase;
+      proj.clientData.disc.updatedAt = new Date().toISOString();
     }
-  );
-}
+    proj.clientData.disc.contacts.push(contact);
+    // Trigger save se disponibile
+    if (typeof saveState === 'function') saveState();
+    if (typeof saveCurrentProject === 'function') saveCurrentProject();
+    return true;
+  }
+  window._discSave = function() {
+    var ok = saveToProject();
+    var btn = document.getElementById('disc-save-btn');
+    if (btn) {
+      btn.textContent = ok ? '✅ Salvato!' : '⚠️ Nessun progetto';
+      btn.style.opacity = '0.6';
+      setTimeout(function() { btn.textContent = '💾 Salva nel progetto'; btn.style.opacity = '1'; }, 2000);
+    }
+  };
 
-function showPreventivo(data,name,dom){
-  var tipsH=(data.presentationTips||[]).map(function(t){
-    return'<div class="prev-item"><div class="prev-item-icon">'+t.icon+'</div><div class="prev-item-body"><div class="prev-item-title">'+t.title+'</div><div class="prev-item-desc">'+t.desc+'</div></div></div>';
-  }).join('');
-  var objH=(data.objections||[]).map(function(o){
-    return'<div class="prev-item"><div class="prev-item-icon">💬</div><div class="prev-item-body"><div class="prev-item-title">«'+o.obj+'»</div><div class="prev-item-desc"><strong>Tu:</strong> '+o.reply+'</div></div></div>';
-  }).join('');
-  document.getElementById('prevBox').innerHTML=
-    '<div class="prev-box">'
-    +'<div class="result-header"><div><div class="result-name">'+name+'</div><div class="result-sub">Strategia preventivo — Profilo '+dom+'</div></div><div class="big-badge '+dom+'">'+dom+'</div></div>'
-    +'<div class="res-card" style="margin-bottom:12px"><div class="res-card-title">📌 Come introdurlo</div><div class="res-card-body">'+data.intro+'</div></div>'
-    +'<div class="section-title" style="margin-top:16px">Come presentarlo</div>'
-    +'<div class="prev-strategy">'+tipsH+'</div>'
-    +'<div class="section-title" style="margin-top:16px">Obiezioni tipiche</div>'
-    +'<div class="prev-strategy">'+objH+'</div>'
-    +'<div class="section-title" style="margin-top:16px">Script — cosa dire</div>'
-    +'<div class="prev-script"><div class="prev-script-title">// TESTO DA USARE CON IL CLIENTE</div><div class="prev-script-text">'+data.script+'</div></div>'
-    +'<div class="res-card" style="margin-bottom:12px"><div class="res-card-title">⏰ Follow-up — '+data.followUpTiming+'</div><div class="res-card-body" style="font-style:italic">'+data.followUpMessage+'</div></div>'
-    +'<div class="result-actions">'
-    +'<button class="btn btn-ghost" onclick="resetAll()">🔄 Nuovo cliente</button>'
-    +'<button class="btn btn-ghost" onclick="copyPrev()">📋 Copia script</button>'
-    +'<button class="btn btn-primary" onclick="window.print()">🖨️ Stampa</button>'
-    +'</div></div>';
-}
+  // ── RENDER HTML ───────────────────────────────────────────────────
+  function buildHTML() {
+    var clientName = getClientName();
+    var apiKey = getApiKey();
 
-function copyPrev(){
-  var s=document.querySelector('.prev-script-text');
-  if(s)navigator.clipboard.writeText(s.textContent).then(function(){alert('✅ Script copiato!');});
-}
+    // Guide cards
+    var guideH = guide.map(function(g, i) {
+      return '<div class="disc-guide-card' + (i===0?' open':'') + '" id="disc-gc-' + i + '">'
+        + '<button class="disc-guide-header" onclick="_discToggleGuide(' + i + ')">'
+        + '<div class="disc-guide-num">' + g.num + '</div>'
+        + '<div class="disc-guide-info"><div class="disc-guide-q">' + g.domanda + '</div><div class="disc-guide-quando">⏰ ' + g.quando + '</div></div>'
+        + '<div class="disc-guide-arrow">▼</div></button>'
+        + '<div class="disc-guide-body"><div class="disc-guide-body-inner">'
+        + '<div class="disc-guide-label accent">// COSA DIRE</div>'
+        + '<div class="disc-guide-say">' + g.dici + '</div>'
+        + '<div class="disc-guide-label muted">// OSSERVA — ' + g.osserva + '</div>'
+        + '<div class="disc-guide-signals">'
+        + g.signals.map(function(s){ return '<div class="disc-guide-signal"><div class="disc-sdot ' + s.d + '">' + s.d + '</div><span>' + s.t + '</span></div>'; }).join('')
+        + '</div></div></div></div>';
+    }).join('');
 
-function resetAll(){
-  scores={D:0,I:0,S:0,C:0};p1answers={};p2events=[];lastResult=null;
-  document.getElementById('clientName').value='';
-  document.getElementById('compassPill').className='disc-pill none';
-  document.getElementById('compassPill').textContent='—';
-  document.getElementById('compassName').textContent='In attesa...';
-  document.getElementById('compassTip').textContent='Inizia dalla Fase 0 — leggi le domande da fare al cliente.';
-  document.getElementById('compass').className='compass';
-  ['D','I','S','C'].forEach(function(d){document.getElementById('mb'+d).style.height='0%';});
-  buildGuide();buildPhase1();buildPhase2();
-  goPhase(0);
-}
+    // Phase 1 options
+    var p1H = q1.map(function(q, qi) {
+      var opts = q.opts.map(function(o, oi) {
+        return '<button class="disc-opt" onclick="_discSelP1(' + qi + ',' + oi + ',\'' + o.d + '\',\'' + o.t.replace(/'/g,"\\'") + '\')">'
+          + '<div class="disc-opt-dot ' + o.d + '">' + o.d + '</div>' + o.t + '</button>';
+      }).join('');
+      return '<div class="disc-signal-card"><div class="disc-signal-q">' + q.q + '</div><div class="disc-signal-opts" id="disc-so-' + qi + '">' + opts + '</div></div>';
+    }).join('');
 
-buildGuide();buildPhase1();buildPhase2();
-</script>
-</body>
-</html>
+    // Phase 2 live btns
+    var liveGroups = ['💬 Come parla', '💰 Sul prezzo', '🔍 Cosa lo interessa', '⏱️ Sul decidere'];
+    var p2H = liveBtns.map(function(group, gi) {
+      var btns = group.map(function(b, bi) {
+        return '<button class="disc-live-btn" id="disc-lb-' + gi + '_' + bi + '" onclick="_discFireBtn(' + gi + ',' + bi + ',\'' + b.d + '\',\'' + b.l + '\')">'
+          + '<span class="disc-bdot ' + b.d + '">' + b.d + '</span>' + b.l + '</button>';
+      }).join('');
+      return '<div class="disc-live-title">' + liveGroups[gi] + '</div><div class="disc-live-btns">' + btns + '</div>';
+    }).join('');
+
+    return `
+      <div id="disc-overlay" onclick="if(event.target===this)DISC_MODULE.close()">
+        <div id="disc-panel">
+          <div class="disc-header">
+            <div class="disc-header-left">
+              <div class="disc-logo">🧭</div>
+              <div>
+                <div class="disc-title">DISC Live Guide</div>
+                <div class="disc-client-name">${clientName}</div>
+              </div>
+            </div>
+            <button class="disc-close" onclick="DISC_MODULE.close()">✕</button>
+          </div>
+
+          <div class="disc-body" id="disc-body">
+            ${!apiKey ? `<div style="background:rgba(255,179,0,0.05);border:1px solid rgba(255,179,0,0.15);border-radius:10px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <span style="font-size:11px;color:#ffb300;font-family:monospace;font-weight:700;">🔑 API KEY</span>
+              <input type="text" id="disc-apikey-input" placeholder="sk-ant-..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"
+                style="background:#111620;border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:6px 10px;color:#dce8f5;font-family:monospace;font-size:11px;outline:none;flex:1;min-width:140px;">
+              <button onclick="var k=document.getElementById('disc-apikey-input').value.trim();if(k){localStorage.setItem('disc_apikey',k);this.textContent='✅';}" 
+                style="background:#111620;border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:6px 12px;color:#8899aa;font-size:12px;cursor:pointer;">Salva</button>
+            </div>` : ''}
+
+            <!-- BUSSOLA -->
+            <div class="disc-compass" id="disc-compass">
+              <div class="disc-compass-top">
+                <span class="disc-compass-label">// bussola live</span>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="disc-pill none" id="disc-compass-pill">—</div>
+                  <span class="disc-compass-name" id="disc-compass-name">In attesa...</span>
+                </div>
+              </div>
+              <div class="disc-compass-tip" id="disc-compass-tip">Inizia dalla Fase 0 per essere guidato con il cliente.</div>
+              <div class="disc-mini-bars">
+                ${['D','I','S','C'].map(function(d){ return '<div class="disc-mb-wrap"><div class="disc-mb-track"><div class="disc-mb-fill ' + d + '" id="disc-mb-' + d + '" style="height:0%"></div></div><div class="disc-mb-label">' + d + '</div></div>'; }).join('')}
+              </div>
+            </div>
+
+            <!-- PHASE NAV -->
+            <div class="disc-phases">
+              <button class="disc-phase-btn active" id="disc-pnav-0" onclick="_discGoPhase(0)">0️⃣ Domande</button>
+              <button class="disc-phase-btn" id="disc-pnav-1" onclick="_discGoPhase(1)">1️⃣ Impressioni</button>
+              <button class="disc-phase-btn" id="disc-pnav-2" onclick="_discGoPhase(2)">2️⃣ Durante</button>
+              <button class="disc-phase-btn" id="disc-pnav-3" onclick="_discGoPhase(3)">3️⃣ Profilo</button>
+              <button class="disc-phase-btn" id="disc-pnav-4" onclick="_discGoPhase(4)">4️⃣ Preventivo</button>
+            </div>
+
+            <!-- FASE 0 -->
+            <div class="disc-section active" id="disc-phase-0">
+              <div class="disc-section-title">Domande da fare al cliente</div>
+              <div class="disc-desc">Inseriscile naturalmente nella conversazione. Non tutte — solo quelle che si incastrano.</div>
+              ${guideH}
+            </div>
+
+            <!-- FASE 1 -->
+            <div class="disc-section" id="disc-phase-1">
+              <div class="disc-section-title">Prime impressioni</div>
+              <div class="disc-desc">Tocca la risposta che corrisponde a quello che stai osservando.</div>
+              ${p1H}
+            </div>
+
+            <!-- FASE 2 -->
+            <div class="disc-section" id="disc-phase-2">
+              <div class="disc-section-title">Segnali durante la consulenza</div>
+              <div class="disc-desc">Tocca quando succede — la bussola si aggiorna in tempo reale.</div>
+              ${p2H}
+            </div>
+
+            <!-- FASE 3 -->
+            <div class="disc-section" id="disc-phase-3">
+              <div class="disc-section-title">Profilo completo</div>
+              <div class="disc-loading" id="disc-loading-3"><div class="disc-loading-ring"></div><div class="disc-loading-txt">Claude sta analizzando...</div></div>
+              <div id="disc-result-box"></div>
+            </div>
+
+            <!-- FASE 4 -->
+            <div class="disc-section" id="disc-phase-4">
+              <div class="disc-section-title">Strategia preventivo</div>
+              <div class="disc-loading" id="disc-loading-4"><div class="disc-loading-ring"></div><div class="disc-loading-txt">Elaborando strategia...</div></div>
+              <div id="disc-prev-box"></div>
+            </div>
+          </div>
+
+          <!-- BOTTOM BAR -->
+          <div class="disc-bottom-bar">
+            <span class="disc-counter" id="disc-p1counter">0 segnali</span>
+            <div style="display:flex;gap:8px;">
+              ${currentProjectId ? '<button class="disc-btn disc-btn-save" id="disc-save-btn" onclick="_discSave()">💾 Salva nel progetto</button>' : ''}
+              <button class="disc-btn disc-btn-primary" id="disc-main-btn" onclick="_discGoPhase(3)">🧠 Genera profilo →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // ── OPEN ──────────────────────────────────────────────────────────
+  function open(projectId) {
+    currentProjectId = projectId || null;
+    resetState();
+    injectCSS();
+    var existing = document.getElementById('disc-overlay');
+    if (existing) existing.remove();
+    var div = document.createElement('div');
+    div.innerHTML = buildHTML();
+    document.body.appendChild(div.firstElementChild);
+
+    // Fix iPad touch — attach touchstart to all buttons inside panel
+    setTimeout(function() {
+      var panel = document.getElementById('disc-panel');
+      if (!panel) return;
+      panel.querySelectorAll('button').forEach(function(btn) {
+        btn.addEventListener('touchstart', function(e) {
+          e.stopPropagation();
+        }, { passive: true });
+      });
+      // Also fix body scroll lock
+      document.body.style.overflow = 'hidden';
+    }, 50);
+  }
+
+  // ── CLOSE ─────────────────────────────────────────────────────────
+  function close() {
+    var el = document.getElementById('disc-overlay');
+    if (el) el.remove();
+    document.body.style.overflow = '';
+  }
+
+  // ── GET SAVED PROFILE ─────────────────────────────────────────────
+  function getProfile(projectId) {
+    if (typeof state !== 'undefined' && state.projects) {
+      var proj = state.projects[projectId] || Object.values(state.projects).find(function(p){ return p.id === projectId; });
+      return proj && proj.clientData && proj.clientData.disc ? proj.clientData.disc : null;
+    }
+    return null;
+  }
+
+  // ── RENDER MINI BADGE (per sidebar/scheda) ───────────────────────
+  function renderMiniBadge(projectId) {
+    var profile = getProfile(projectId);
+    if (!profile) return '';
+    var colors = { D:'#ff3d3d', I:'#ffb300', S:'#00e676', C:'#2979ff' };
+    var dom = profile.dominant;
+    return '<span onclick="DISC_MODULE.open(\'' + projectId + '\')" '
+      + 'style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;'
+      + 'background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);cursor:pointer;font-size:11px;color:' + (colors[dom]||'#00d4ff') + ';font-family:monospace;">'
+      + '🧭 ' + dom + '</span>';
+  }
+
+  // ── PUBLIC API ────────────────────────────────────────────────────
+  return {
+    version: VERSION,
+    open: open,
+    close: close,
+    getProfile: getProfile,
+    renderMiniBadge: renderMiniBadge,
+    saveToProject: saveToProject
+  };
+
+})();
+
+console.log('🧭 DISC_MODULE v' + window.DISC_MODULE.version + ' loaded');
+} // end if undefined
