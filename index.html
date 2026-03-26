@@ -6,13 +6,7 @@
 <title>DISC Live Guide — O.P.E.R.A.</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#06080d;--bg2:#0c1018;--bg3:#111620;--bg4:#161c28;
-  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.14);
-  --accent:#00d4ff;--accent2:#7c4dff;
-  --D:#ff3d3d;--I:#ffb300;--S:#00e676;--C:#2979ff;
-  --text:#dce8f5;--text2:#8899aa;--muted:#445566;
-}
+:root{--bg:#06080d;--bg2:#0c1018;--bg3:#111620;--bg4:#161c28;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.14);--accent:#00d4ff;--accent2:#7c4dff;--D:#ff3d3d;--I:#ffb300;--S:#00e676;--C:#2979ff;--text:#dce8f5;--text2:#8899aa;--muted:#445566;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
@@ -21,8 +15,6 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .orb1{width:500px;height:500px;background:rgba(0,212,255,0.035);top:-150px;right:-100px;}
 .orb2{width:400px;height:400px;background:rgba(124,77,255,0.035);bottom:-100px;left:-100px;}
 .app{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:0 16px 100px;}
-
-/* HEADER */
 header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);margin-bottom:24px;}
 .logo-group{display:flex;align-items:center;gap:12px;}
 .logo-badge{width:38px;height:38px;background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(124,77,255,0.2));border:1px solid rgba(0,212,255,0.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;}
@@ -32,19 +24,13 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
 .btn-reset{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:6px 12px;color:var(--muted);font-family:'Syne',sans-serif;font-size:12px;cursor:pointer;}
 .btn-reset:hover{color:var(--text);border-color:var(--border2);}
 
-/* LIVE COMPASS — sempre visibile */
-.compass{
-  position:sticky;top:12px;z-index:100;
-  background:var(--bg2);border:1px solid var(--border2);
-  border-radius:16px;padding:16px 20px;
-  margin-bottom:20px;
-  transition:border-color 0.4s, box-shadow 0.4s;
-}
+/* COMPASS */
+.compass{position:sticky;top:12px;z-index:100;background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:16px 20px;margin-bottom:20px;transition:border-color 0.4s,box-shadow 0.4s;}
 .compass.D{border-color:rgba(255,61,61,0.5);box-shadow:0 0 30px rgba(255,61,61,0.12);}
 .compass.I{border-color:rgba(255,179,0,0.5);box-shadow:0 0 30px rgba(255,179,0,0.12);}
 .compass.S{border-color:rgba(0,230,118,0.5);box-shadow:0 0 30px rgba(0,230,118,0.12);}
 .compass.C{border-color:rgba(41,121,255,0.5);box-shadow:0 0 30px rgba(41,121,255,0.12);}
-.compass-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.compass-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .compass-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
 .compass-profile{display:flex;align-items:center;gap:10px;}
 .disc-pill{padding:4px 14px;border-radius:20px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;transition:all 0.4s;}
@@ -54,9 +40,7 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
 .disc-pill.C{background:rgba(41,121,255,0.2);color:var(--C);border:1px solid rgba(41,121,255,0.3);}
 .disc-pill.none{background:var(--bg3);color:var(--muted);border:1px solid var(--border);}
 .compass-name{font-size:13px;font-weight:700;color:var(--text2);}
-.compass-tip{font-size:13px;color:var(--text2);line-height:1.5;min-height:20px;transition:all 0.3s;}
-.compass-tip strong{color:var(--text);}
-/* mini bars */
+.compass-tip{font-size:13px;color:var(--text2);line-height:1.5;min-height:20px;}
 .mini-bars{display:flex;gap:6px;align-items:flex-end;height:24px;margin-top:10px;}
 .mini-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;}
 .mini-bar-track{width:100%;background:var(--bg3);border-radius:3px;height:16px;overflow:hidden;position:relative;}
@@ -67,28 +51,46 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
 .mini-bar-fill.C{background:var(--C);}
 .mini-bar-label{font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);}
 
-/* PHASES */
-.phase-nav{display:flex;gap:8px;margin-bottom:20px;}
-.phase-btn{flex:1;padding:10px 8px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:center;}
+/* PHASE NAV */
+.phase-nav{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px;}
+.phase-btn{flex:1;min-width:0;padding:10px 6px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-family:'Syne',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:center;white-space:nowrap;}
 .phase-btn.active{background:rgba(0,212,255,0.08);border-color:var(--accent);color:var(--accent);}
 .phase-btn.done{border-color:rgba(0,230,118,0.4);color:var(--S);}
 
-/* SECTION */
+/* SECTIONS */
 .section{display:none;}
 .section.active{display:block;}
 .section-title{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;}
 .section-title::before{content:'//';color:var(--muted);}
 .section-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px;padding:12px 16px;background:var(--bg3);border-radius:10px;border-left:3px solid var(--accent);}
 
-/* SIGNAL CARDS */
+/* FASE 0 — DOMANDE GUIDA */
+.guide-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.guide-card-header{padding:16px 18px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;}
+.guide-num{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(124,77,255,0.15));border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--accent);flex-shrink:0;}
+.guide-card-info{flex:1;}
+.guide-domanda{font-size:15px;font-weight:700;line-height:1.4;margin-bottom:4px;}
+.guide-quando{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:1px;}
+.guide-body{padding:0 18px 18px;border-top:1px solid var(--border);}
+.guide-body-inner{padding-top:14px;}
+.guide-fai{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px;font-family:'Space Mono',monospace;letter-spacing:1px;}
+.guide-say{background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.15);border-radius:8px;padding:10px 14px;font-size:13px;font-style:italic;color:var(--text);line-height:1.5;margin-bottom:14px;}
+.guide-osserva{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;font-family:'Space Mono',monospace;letter-spacing:1px;}
+.guide-signals{display:flex;flex-direction:column;gap:6px;}
+.guide-signal{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:8px;background:var(--bg3);border:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.4;}
+.signal-disc{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.signal-disc.D{background:rgba(255,61,61,0.2);color:var(--D);}
+.signal-disc.I{background:rgba(255,179,0,0.2);color:var(--I);}
+.signal-disc.S{background:rgba(0,230,118,0.2);color:var(--S);}
+.signal-disc.C{background:rgba(41,121,255,0.2);color:var(--C);}
+.guide-card.open .guide-body{display:block;}
+.guide-card:not(.open) .guide-body{display:none;}
+.guide-arrow{font-size:12px;color:var(--muted);transition:transform 0.2s;flex-shrink:0;margin-top:6px;}
+.guide-card.open .guide-arrow{transform:rotate(180deg);}
+
+/* FASE 1 */
 .signal-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
-.signal-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:all 0.2s;}
-.signal-card:hover{border-color:var(--border2);background:var(--bg3);}
-.signal-card.selected{background:rgba(0,212,255,0.04);}
-.signal-card.selected.D{border-color:var(--D);background:rgba(255,61,61,0.06);}
-.signal-card.selected.I{border-color:var(--I);background:rgba(255,179,0,0.06);}
-.signal-card.selected.S{border-color:var(--S);background:rgba(0,230,118,0.06);}
-.signal-card.selected.C{border-color:var(--C);background:rgba(41,121,255,0.06);}
+.signal-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;}
 .signal-q{font-size:13px;font-weight:700;margin-bottom:10px;line-height:1.4;}
 .signal-opts{display:flex;flex-direction:column;gap:6px;}
 .signal-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;background:var(--bg3);border:1px solid var(--border);cursor:pointer;transition:all 0.2s;font-size:13px;color:var(--text2);}
@@ -103,9 +105,9 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
 .opt-dot.S{background:rgba(0,230,118,0.2);color:var(--S);}
 .opt-dot.C{background:rgba(41,121,255,0.2);color:var(--C);}
 
-/* LIVE BUTTONS (fase 2) */
-.live-section-title{font-size:12px;font-weight:700;color:var(--text2);margin:20px 0 10px;letter-spacing:0.5px;}
-.live-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+/* FASE 2 */
+.live-section-title{font-size:12px;font-weight:700;color:var(--text2);margin:18px 0 8px;letter-spacing:0.5px;}
+.live-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
 .live-btn{padding:9px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;}
 .live-btn:hover{border-color:var(--border2);background:var(--bg3);color:var(--text);}
 .live-btn.fired{opacity:0.5;transform:scale(0.95);}
@@ -119,7 +121,7 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
 .live-btn .btn-disc.S{background:rgba(0,230,118,0.2);color:var(--S);}
 .live-btn .btn-disc.C{background:rgba(41,121,255,0.2);color:var(--C);}
 
-/* RESULT FULL */
+/* RESULTS */
 .result-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;}
 .result-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;}
 .result-name{font-size:20px;font-weight:900;margin-bottom:3px;}
@@ -149,16 +151,14 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
 .res-card-body{font-size:13px;color:var(--text2);line-height:1.7;}
 .tip-row{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:6px;}
 .phrase-box{background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.2);border-radius:10px;padding:14px 16px;font-size:14px;font-style:italic;color:var(--accent);line-height:1.6;margin-top:4px;}
-
 .result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+
+/* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:11px 20px;border-radius:10px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;transition:all 0.2s;}
 .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;box-shadow:0 4px 16px rgba(0,212,255,0.2);}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,212,255,0.3);}
-.btn-primary:disabled{opacity:0.4;transform:none;cursor:not-allowed;}
 .btn-ghost{background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
 .btn-ghost:hover{border-color:var(--border2);color:var(--text);}
-
-/* NEXT PHASE */
 .next-phase-bar{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
 .phase-counter{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);}
 
@@ -169,14 +169,12 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-txt{font-family:'Space Mono',monospace;font-size:11px;color:var(--text2);letter-spacing:1px;}
 
-/* API BAR */
-.api-bar{background:rgba(255,179,0,0.05);border:1px solid rgba(255,179,0,0.15);border-radius:12px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+/* API / CLIENT */
+.api-bar{background:rgba(255,179,0,0.05);border:1px solid rgba(255,179,0,0.15);border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .api-bar label{font-size:11px;color:var(--I);font-weight:700;white-space:nowrap;font-family:'Space Mono',monospace;}
 .api-bar input{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 10px;color:var(--text);font-family:'Space Mono',monospace;font-size:11px;outline:none;flex:1;min-width:160px;}
 .api-status{font-size:11px;color:var(--muted);}
-
-/* CLIENT */
-.client-bar{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.client-bar{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
 .client-bar input{background:none;border:none;outline:none;color:var(--text);font-family:'Syne',sans-serif;font-size:14px;font-weight:600;flex:1;}
 .client-bar input::placeholder{color:var(--muted);font-weight:400;}
 </style>
@@ -198,7 +196,6 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
   <button class="btn-reset" onclick="resetAll()">↺ Reset</button>
 </header>
 
-<!-- API KEY -->
 <div class="api-bar" id="apiBar">
   <label>🔑 API KEY</label>
   <input type="password" id="apiKey" placeholder="sk-ant-...">
@@ -206,89 +203,83 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
   <span class="api-status" id="apiStatus"></span>
 </div>
 
-<!-- CLIENT NAME -->
 <div class="client-bar">
   <span style="font-size:18px;">👤</span>
   <input type="text" id="clientName" placeholder="Nome cliente...">
 </div>
 
-<!-- LIVE COMPASS -->
+<!-- BUSSOLA LIVE -->
 <div class="compass" id="compass">
   <div class="compass-top">
-    <span class="compass-label">// profilo live</span>
+    <span class="compass-label">// bussola live</span>
     <div class="compass-profile">
       <div class="disc-pill none" id="compassPill">—</div>
-      <span class="compass-name" id="compassName">In attesa di segnali...</span>
+      <span class="compass-name" id="compassName">In attesa...</span>
     </div>
   </div>
-  <div class="compass-tip" id="compassTip">Completa la Fase 1 per vedere il profilo in tempo reale.</div>
+  <div class="compass-tip" id="compassTip">Inizia dalla Fase 0 per essere guidato con il cliente.</div>
   <div class="mini-bars">
-    <div class="mini-bar-wrap">
-      <div class="mini-bar-track"><div class="mini-bar-fill D" id="mbD" style="height:0%"></div></div>
-      <div class="mini-bar-label">D</div>
-    </div>
-    <div class="mini-bar-wrap">
-      <div class="mini-bar-track"><div class="mini-bar-fill I" id="mbI" style="height:0%"></div></div>
-      <div class="mini-bar-label">I</div>
-    </div>
-    <div class="mini-bar-wrap">
-      <div class="mini-bar-track"><div class="mini-bar-fill S" id="mbS" style="height:0%"></div></div>
-      <div class="mini-bar-label">S</div>
-    </div>
-    <div class="mini-bar-wrap">
-      <div class="mini-bar-track"><div class="mini-bar-fill C" id="mbC" style="height:0%"></div></div>
-      <div class="mini-bar-label">C</div>
-    </div>
+    <div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill D" id="mbD" style="height:0%"></div></div><div class="mini-bar-label">D</div></div>
+    <div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill I" id="mbI" style="height:0%"></div></div><div class="mini-bar-label">I</div></div>
+    <div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill S" id="mbS" style="height:0%"></div></div><div class="mini-bar-label">S</div></div>
+    <div class="mini-bar-wrap"><div class="mini-bar-track"><div class="mini-bar-fill C" id="mbC" style="height:0%"></div></div><div class="mini-bar-label">C</div></div>
   </div>
 </div>
 
 <!-- PHASE NAV -->
 <div class="phase-nav">
-  <button class="phase-btn active" id="pnav1" onclick="goPhase(1)">① Prime impressioni</button>
-  <button class="phase-btn" id="pnav2" onclick="goPhase(2)">② Durante</button>
-  <button class="phase-btn" id="pnav3" onclick="goPhase(3)">③ Profilo finale</button>
+  <button class="phase-btn active" id="pnav0" onclick="goPhase(0)">0️⃣ Domande guida</button>
+  <button class="phase-btn" id="pnav1" onclick="goPhase(1)">1️⃣ Impressioni</button>
+  <button class="phase-btn" id="pnav2" onclick="goPhase(2)">2️⃣ Durante</button>
+  <button class="phase-btn" id="pnav3" onclick="goPhase(3)">3️⃣ Profilo</button>
 </div>
 
-<!-- FASE 1 -->
-<div class="section active" id="phase1">
-  <div class="section-title">Prime impressioni</div>
-  <div class="section-desc">Osserva il cliente nei primi 2 minuti. Rispondi a quello che noti — non serve rispondere tutto subito.</div>
-  <div class="signal-grid" id="signalGrid1"></div>
+<!-- FASE 0: DOMANDE GUIDA -->
+<div class="section active" id="phase0">
+  <div class="section-title">Domande da fare al cliente</div>
+  <div class="section-desc">Usa queste domande naturalmente nella conversazione. Non devi farle tutte — fai quelle che si incastrano meglio. Osserva come risponde e poi vai alla Fase 1.</div>
+  <div id="guideCards"></div>
   <div class="next-phase-bar">
-    <span class="phase-counter" id="p1counter">0 segnali raccolti</span>
-    <button class="btn btn-primary" onclick="goPhase(2)">Vai alla Fase 2 →</button>
+    <span class="phase-counter">Leggi e usa durante la consulenza</span>
+    <button class="btn btn-primary" onclick="goPhase(1)">Vai alle impressioni →</button>
   </div>
 </div>
 
-<!-- FASE 2 -->
+<!-- FASE 1: IMPRESSIONI -->
+<div class="section" id="phase1">
+  <div class="section-title">Prime impressioni</div>
+  <div class="section-desc">Rispondi a quello che hai osservato finora. Anche solo 2-3 risposte bastano per avere la bussola.</div>
+  <div class="signal-grid" id="signalGrid1"></div>
+  <div class="next-phase-bar">
+    <span class="phase-counter" id="p1counter">0 segnali</span>
+    <button class="btn btn-primary" onclick="goPhase(2)">Fase 2 — Durante →</button>
+  </div>
+</div>
+
+<!-- FASE 2: LIVE -->
 <div class="section" id="phase2">
   <div class="section-title">Segnali durante la consulenza</div>
-  <div class="section-desc">Premi i bottoni quando succede — anche più volte. L'app aggiorna il profilo in tempo reale.</div>
-
+  <div class="section-desc">Premi quando succede — anche più volte. La bussola si aggiorna in tempo reale.</div>
   <div class="live-section-title">💬 Come parla e reagisce</div>
   <div class="live-btns" id="livebtns1"></div>
-
   <div class="live-section-title">💰 Sul prezzo</div>
   <div class="live-btns" id="livebtns2"></div>
-
   <div class="live-section-title">🔍 Cosa lo interessa</div>
   <div class="live-btns" id="livebtns3"></div>
-
   <div class="live-section-title">⏱️ Sul decidere</div>
   <div class="live-btns" id="livebtns4"></div>
-
   <div class="next-phase-bar">
     <span class="phase-counter" id="p2counter">0 segnali</span>
     <button class="btn btn-primary" onclick="goPhase(3)">Genera profilo completo →</button>
   </div>
 </div>
 
-<!-- FASE 3 -->
+<!-- FASE 3: RISULTATO -->
 <div class="section" id="phase3">
   <div class="section-title">Profilo completo</div>
   <div class="loading-overlay" id="loadingBox">
     <div class="loading-ring"></div>
-    <div class="loading-txt">Analizzando i segnali con Claude AI...</div>
+    <div class="loading-txt">Claude sta analizzando i segnali...</div>
   </div>
   <div id="resultBox"></div>
 </div>
@@ -296,278 +287,298 @@ header{padding:24px 0 20px;display:flex;align-items:center;justify-content:space
 </div>
 
 <script>
-// ── STATE ────────────────────────────────────────────────────────────────────
-var scores = {D:0,I:0,S:0,C:0};
-var phase1answers = {};  // qIdx -> {disc, text}
-var phase2events = [];   // [{disc, label}]
-var apiKey = localStorage.getItem('disc_apikey') || '';
-var currentPhase = 1;
+var scores={D:0,I:0,S:0,C:0};
+var p1answers={};
+var p2events=[];
+var apiKey=localStorage.getItem('disc_apikey')||'';
 
 if(apiKey){
-  document.getElementById('apiKey').value = apiKey;
-  document.getElementById('apiStatus').textContent = '✅ Configurata';
-  document.getElementById('apiStatus').style.color = 'var(--S)';
-  document.getElementById('apiBar').style.display = 'none';
+  document.getElementById('apiKey').value=apiKey;
+  document.getElementById('apiStatus').textContent='✅ Configurata';
+  document.getElementById('apiStatus').style.color='var(--S)';
+  document.getElementById('apiBar').style.display='none';
 }
-
 function saveKey(){
-  var k = document.getElementById('apiKey').value.trim();
-  if(k){ apiKey=k; localStorage.setItem('disc_apikey',k);
+  var k=document.getElementById('apiKey').value.trim();
+  if(k){apiKey=k;localStorage.setItem('disc_apikey',k);
     document.getElementById('apiStatus').textContent='✅ Salvata!';
     document.getElementById('apiStatus').style.color='var(--S)';
-    setTimeout(function(){document.getElementById('apiBar').style.display='none';},1500);
-  }
+    setTimeout(function(){document.getElementById('apiBar').style.display='none';},1500);}
 }
 
-// ── FASE 1 DOMANDE ──────────────────────────────────────────────────────────
-var q1 = [
-  {q:"Come ti ha accolto?", opts:[
+// ── FASE 0: DOMANDE GUIDA ──────────────────────────────────────────────────
+var guide=[
+  {
+    num:'01', quando:'ALL\'INIZIO — appena arrivato',
+    domanda:'Ha già un\'idea di cosa vuole o preferisce che le mostri le opzioni?',
+    dici:'"Ha già qualcosa in mente, o preferisce che le mostri cosa abbiamo?"',
+    osserva:'Come risponde a questa domanda',
+    signals:[
+      {d:'D',t:'"Ho già deciso, voglio solo sapere il prezzo" — sa già cosa vuole'},
+      {d:'I',t:'"Mostrami tutto!" — entusiasta, vuole essere ispirato'},
+      {d:'S',t:'"Non so... cosa mi consiglia lei?" — si affida a te'},
+      {d:'C',t:'"Ho fatto delle ricerche, ho alcune domande specifiche" — è preparato'}
+    ]
+  },
+  {
+    num:'02', quando:'QUANDO PARLI DEI PRODOTTI',
+    domanda:'Cosa è più importante per lei in questa scelta?',
+    dici:'"Quando sceglie una finestra/porta, cosa conta di più per lei?"',
+    osserva:'La prima cosa che nomina è il segnale più forte',
+    signals:[
+      {d:'D',t:'"La qualità e i tempi — voglio che sia fatto bene e in fretta"'},
+      {d:'I',t:'"L\'estetica — deve stare bene con la casa, voglio qualcosa di bello"'},
+      {d:'S',t:'"L\'affidabilità — voglio essere sicuro che dura e che siete presenti dopo"'},
+      {d:'C',t:'"Le prestazioni tecniche — trasmittanza, certificazioni, materiali"'}
+    ]
+  },
+  {
+    num:'03', quando:'QUANDO PRESENTI IL PREVENTIVO',
+    domanda:'Come preferisce ricevere il preventivo?',
+    dici:'"Preferisce che glielo mando via email o lo vediamo insieme adesso?"',
+    osserva:'La preferenza rivela come vuole decidere',
+    signals:[
+      {d:'D',t:'"Mandamelo via email, lo guardo io" — vuole decidere da solo, veloce'},
+      {d:'I',t:'"Vediamolo insieme!" — vuole interazione, non vuole restare solo'},
+      {d:'S',t:'"Lo vedo con mia moglie/marito" — coinvolge altri nella decisione'},
+      {d:'C',t:'"Mandamelo, ho bisogno di analizzarlo con calma" — deve studiarlo'}
+    ]
+  },
+  {
+    num:'04', quando:'QUANDO PARLI DEI TEMPI',
+    domanda:'Ha qualche scadenza o urgenza?',
+    dici:'"Ha in mente una data entro cui vorrebbe i lavori completati?"',
+    osserva:'Il tono più che la risposta in sé',
+    signals:[
+      {d:'D',t:'Risponde con una data precisa e ferma — controllo totale sui tempi'},
+      {d:'I',t:'"Beh, prima è meglio è... ma non ho fretta" — flessibile, ottimista'},
+      {d:'S',t:'"Dipende, non voglio che sia un problema per voi" — non vuole disturbare'},
+      {d:'C',t:'"Dipende da quando arriva il materiale — quali sono i vostri tempi reali?"'}
+    ]
+  },
+  {
+    num:'05', quando:'ALLA FINE — per capire il passo successivo',
+    domanda:'Come si trova più comodo per procedere?',
+    dici:'"Come vuole procedere da qui? Cosa le serve per decidere?"',
+    osserva:'La risposta ti dice esattamente dove si trova nel processo',
+    signals:[
+      {d:'D',t:'"Facciamo — quando possiamo firmare?" — pronto a chiudere'},
+      {d:'I',t:'"Mi fido di lei, ma voglio mostrarlo a mia moglie" — ha bisogno di consenso'},
+      {d:'S',t:'"Ho bisogno di pensarci un po\'... ci risentiremo" — ha bisogno di tempo'},
+      {d:'C',t:'"Ho ancora alcune domande tecniche da chiarire" — non ha finito di valutare'}
+    ]
+  }
+];
+
+function buildGuide(){
+  var html='';
+  guide.forEach(function(g,i){
+    html+='<div class="guide-card" id="gc'+i+'">'
+      +'<div class="guide-card-header" onclick="toggleGuide('+i+')">'
+      +'<div class="guide-num">'+g.num+'</div>'
+      +'<div class="guide-card-info">'
+      +'<div class="guide-domanda">'+g.domanda+'</div>'
+      +'<div class="guide-quando">⏰ '+g.quando+'</div>'
+      +'</div>'
+      +'<div class="guide-arrow">▼</div>'
+      +'</div>'
+      +'<div class="guide-body">'
+      +'<div class="guide-body-inner">'
+      +'<div class="guide-fai">// COSA DIRE</div>'
+      +'<div class="guide-say">'+g.dici+'</div>'
+      +'<div class="guide-osserva">// COSA OSSERVARE — '+g.osserva+'</div>'
+      +'<div class="guide-signals">'
+      +g.signals.map(function(s){
+        return '<div class="guide-signal"><div class="signal-disc '+s.d+'">'+s.d+'</div><span>'+s.t+'</span></div>';
+      }).join('')
+      +'</div></div></div></div>';
+  });
+  document.getElementById('guideCards').innerHTML=html;
+  // Open first by default
+  document.getElementById('gc0').classList.add('open');
+}
+
+function toggleGuide(i){
+  var card=document.getElementById('gc'+i);
+  card.classList.toggle('open');
+}
+
+// ── FASE 1 ─────────────────────────────────────────────────────────────────
+var q1=[
+  {q:"Come ti ha accolto?",opts:[
     {d:'D',t:"Diretto, ti ha subito detto cosa vuole"},
     {d:'I',t:"Caloroso, sorridente, chiacchierone"},
     {d:'S',t:"Cordiale ma riservato, ti ha offerto qualcosa"},
     {d:'C',t:"Formale, preciso, ti ha fatto accomodare senza fronzoli"}
   ]},
-  {q:"Come parla?", opts:[
+  {q:"Come parla?",opts:[
     {d:'D',t:"Veloce, va al punto, poche parole"},
     {d:'I',t:"Racconta storie, salta argomenti, entusiasta"},
-    {d:'S',t:"Calmo, misurato, parla poco e ascolta"},
+    {d:'S',t:"Calmo, misurato, ascolta più che parlare"},
     {d:'C',t:"Preciso, usa termini tecnici, domande specifiche"}
   ]},
-  {q:"Cosa ha guardato/chiesto per primo?", opts:[
+  {q:"Cosa ha guardato/chiesto per primo?",opts:[
     {d:'D',t:"I prezzi o i tempi di consegna"},
     {d:'I',t:"Le foto dei lavori o i colori disponibili"},
-    {d:'S',t:"Chi ha già usato il prodotto, garanzie"},
+    {d:'S',t:"Chi ha già usato il prodotto, le garanzie"},
     {d:'C',t:"Le schede tecniche, certificazioni, materiali"}
   ]},
-  {q:"Com'è il suo ambiente (casa/ufficio)?", opts:[
-    {d:'D',t:"Funzionale, essenziale, niente orpelli"},
-    {d:'I',t:"Vivace, colorato, personale"},
-    {d:'S',t:"Accogliente, ordinato, familiare"},
-    {d:'C',t:"Preciso, organizzato, tutto al suo posto"}
+  {q:"Com'è il suo atteggiamento generale?",opts:[
+    {d:'D',t:"Deciso, sa quello che vuole, non perde tempo"},
+    {d:'I',t:"Entusiasta, ottimista, simpatico"},
+    {d:'S',t:"Riflessivo, cauto, vuole capire bene prima di agire"},
+    {d:'C',t:"Analitico, critico, fa molte domande"}
   ]}
 ];
 
 function buildPhase1(){
-  var html = '';
+  var html='';
   q1.forEach(function(q,qi){
-    var opts = q.opts.map(function(o,oi){
-      var sel = phase1answers[qi] && phase1answers[qi].oi===oi ? 'sel '+o.d : '';
-      return '<div class="signal-opt '+sel+'" data-d="'+o.d+'" onclick="selP1('+qi+','+oi+',\''+o.d+'\',\''+o.t.replace(/'/g,"\\'")+'\')">'
-        +'<div class="opt-dot '+o.d+'">'+o.d+'</div>'+o.t+'</div>';
+    var opts=q.opts.map(function(o,oi){
+      var sel=p1answers[qi]&&p1answers[qi].oi===oi?'sel '+o.d:'';
+      return '<div class="signal-opt '+sel+'" onclick="selP1('+qi+','+oi+',\''+o.d+'\',\''+o.t.replace(/'/g,"\\'")+'\')"><div class="opt-dot '+o.d+'">'+o.d+'</div>'+o.t+'</div>';
     }).join('');
-    html += '<div class="signal-card" id="sc'+qi+'"><div class="signal-q">'+q.q+'</div><div class="signal-opts">'+opts+'</div></div>';
+    html+='<div class="signal-card"><div class="signal-q">'+q.q+'</div><div class="signal-opts" id="so'+qi+'">'+opts+'</div></div>';
   });
-  document.getElementById('signalGrid1').innerHTML = html;
+  document.getElementById('signalGrid1').innerHTML=html;
 }
 
 function selP1(qi,oi,disc,text){
-  // deselect old
-  if(phase1answers[qi]){
-    var oldDisc = phase1answers[qi].disc;
-    scores[oldDisc] = Math.max(0, scores[oldDisc]-2);
-  }
-  phase1answers[qi] = {oi:oi, disc:disc, text:text};
-  scores[disc] = (scores[disc]||0) + 2;
-  // re-render opts for this card
-  var card = document.getElementById('sc'+qi);
-  card.querySelectorAll('.signal-opt').forEach(function(el,i){
-    el.className = 'signal-opt' + (i===oi?' sel '+disc:'');
-  });
-  updateCounter1();
+  if(p1answers[qi])scores[p1answers[qi].disc]=Math.max(0,scores[p1answers[qi].disc]-2);
+  p1answers[qi]={oi:oi,disc:disc,text:text};
+  scores[disc]=(scores[disc]||0)+2;
+  var opts=document.getElementById('so'+qi).querySelectorAll('.signal-opt');
+  opts.forEach(function(el,i){el.className='signal-opt'+(i===oi?' sel '+disc:'');});
+  document.getElementById('p1counter').textContent=Object.keys(p1answers).length+' segnali';
   updateCompass();
 }
 
-function updateCounter1(){
-  var n = Object.keys(phase1answers).length;
-  document.getElementById('p1counter').textContent = n + ' segnali raccolti';
-}
-
-// ── FASE 2 BOTTONI ──────────────────────────────────────────────────────────
-var liveBtns = [
-  // gruppo 1
-  [{d:'D',l:'Interrompe / va al punto'},{d:'I',l:'Racconta aneddoti'},{d:'S',l:'Ascolta senza interrompere'},{d:'C',l:'Fa domande tecniche'}],
-  // gruppo 2
-  [{d:'D',l:'Negozia subito'},{d:'I',l:"Dice 'vedremo'"},{d:'S',l:'Deve sentire la famiglia'},{d:'C',l:'Chiede confronto dettagliato'}],
-  // gruppo 3
-  [{d:'D',l:'Vuole i risultati finali'},{d:'I',l:'Guarda le foto / estetica'},{d:'S',l:'Chiede garanzie / referenze'},{d:'C',l:'Legge le specifiche tecniche'}],
-  // gruppo 4
-  [{d:'D',l:'Decide subito / impulsivo'},{d:'I',l:"Entusiasta ma dice 'ci penso'"},{d:'S',l:'Prende tempo, vuole sicurezza'},{d:'C',l:'Vuole altri dati prima di decidere'}]
+// ── FASE 2 ─────────────────────────────────────────────────────────────────
+var liveBtns=[
+  [{d:'D',l:'Va al punto / interrompe'},{d:'I',l:'Racconta storie'},{d:'S',l:'Ascolta in silenzio'},{d:'C',l:'Domande tecniche precise'}],
+  [{d:'D',l:'Negozia subito'},{d:'I',l:"Dice 'vedremo'"},{d:'S',l:'Deve sentire la famiglia'},{d:'C',l:'Vuole confronto dettagliato'}],
+  [{d:'D',l:'Vuole i risultati finali'},{d:'I',l:'Guarda foto / estetica'},{d:'S',l:'Chiede garanzie / referenze'},{d:'C',l:'Legge schede tecniche'}],
+  [{d:'D',l:'Decide subito'},{d:'I',l:"Entusiasta ma 'ci penso'"},{d:'S',l:'Prende tempo, vuole sicurezza'},{d:'C',l:'Vuole altri dati'}]
 ];
 
-var btnIds = ['livebtns1','livebtns2','livebtns3','livebtns4'];
-
 function buildPhase2(){
-  liveBtns.forEach(function(group,gi){
-    var html = group.map(function(b,bi){
-      return '<button class="live-btn" id="lb'+gi+'_'+bi+'" onclick="fireBtn('+gi+','+bi+',\''+b.d+'\',\''+b.l.replace(/'/g,"\\'")+'\')">'
-        +'<span class="btn-disc '+b.d+'">'+b.d+'</span>'+b.l+'</button>';
+  ['livebtns1','livebtns2','livebtns3','livebtns4'].forEach(function(id,gi){
+    document.getElementById(id).innerHTML=liveBtns[gi].map(function(b,bi){
+      return '<button class="live-btn" id="lb'+gi+'_'+bi+'" onclick="fireBtn('+gi+','+bi+',\''+b.d+'\',\''+b.l.replace(/'/g,"\\'")+'\')"><span class="btn-disc '+b.d+'">'+b.d+'</span>'+b.l+'</button>';
     }).join('');
-    document.getElementById(btnIds[gi]).innerHTML = html;
   });
 }
 
 function fireBtn(gi,bi,disc,label){
-  scores[disc] = (scores[disc]||0) + 3;
-  phase2events.push({disc:disc,label:label});
-  var btn = document.getElementById('lb'+gi+'_'+bi);
+  scores[disc]=(scores[disc]||0)+3;
+  p2events.push({disc:disc,label:label});
+  var btn=document.getElementById('lb'+gi+'_'+bi);
   btn.classList.add('fired',disc);
   setTimeout(function(){btn.classList.remove('fired',disc);},800);
-  document.getElementById('p2counter').textContent = phase2events.length + ' segnali';
+  document.getElementById('p2counter').textContent=p2events.length+' segnali';
   updateCompass();
 }
 
-// ── COMPASS ─────────────────────────────────────────────────────────────────
-var tips = {
-  D: {name:'Dominante', tip:'<strong>Va diretto.</strong> Prezzi e tempi subito. Niente giri di parole. Rispetta la sua decisione.'},
-  I: {name:'Influente', tip:'<strong>Entusiasmo e relazione.</strong> Racconta storie di successo. Fallo sentire speciale. Leva estetica.'},
-  S: {name:'Stabile', tip:'<strong>Costruisci fiducia.</strong> Niente fretta. Garanzie e referenze. Dagli tempo per decidere.'},
-  C: {name:'Coscienzioso', tip:'<strong>Porta i dati.</strong> Certificazioni, schede tecniche, confronti. Niente pressione. Risposte precise.'}
+// ── COMPASS ────────────────────────────────────────────────────────────────
+var tips={
+  D:{name:'Dominante',tip:'<strong>Va diretto.</strong> Prezzi e tempi subito. Niente giri di parole. Rispetta la sua decisione.'},
+  I:{name:'Influente',tip:'<strong>Entusiasmo e relazione.</strong> Racconta storie di successo. Fallo sentire speciale. Leva estetica.'},
+  S:{name:'Stabile',tip:'<strong>Costruisci fiducia.</strong> Niente fretta. Garanzie e referenze. Dagli tempo per decidere.'},
+  C:{name:'Coscienzioso',tip:'<strong>Porta i dati.</strong> Certificazioni, schede tecniche. Niente pressione. Risposte precise.'}
 };
 
 function updateCompass(){
-  var tot = scores.D+scores.I+scores.S+scores.C;
-  if(tot===0) return;
-  var dom = 'D';
-  ['I','S','C'].forEach(function(d){if(scores[d]>scores[dom])dom=d;});
-  var compass = document.getElementById('compass');
-  compass.className = 'compass '+dom;
-  var pill = document.getElementById('compassPill');
-  pill.className = 'disc-pill '+dom;
-  pill.textContent = dom;
-  document.getElementById('compassName').textContent = tips[dom].name;
-  document.getElementById('compassTip').innerHTML = tips[dom].tip;
-  // mini bars
+  var tot=scores.D+scores.I+scores.S+scores.C;
+  if(tot===0)return;
+  var dom='D';['I','S','C'].forEach(function(d){if(scores[d]>scores[dom])dom=d;});
+  var c=document.getElementById('compass');c.className='compass '+dom;
+  var p=document.getElementById('compassPill');p.className='disc-pill '+dom;p.textContent=dom;
+  document.getElementById('compassName').textContent=tips[dom].name;
+  document.getElementById('compassTip').innerHTML=tips[dom].tip;
   ['D','I','S','C'].forEach(function(d){
-    var pct = tot>0 ? Math.round(scores[d]/tot*100) : 0;
-    document.getElementById('mb'+d).style.height = pct+'%';
+    document.getElementById('mb'+d).style.height=Math.round(scores[d]/tot*100)+'%';
   });
 }
 
-// ── PHASES ──────────────────────────────────────────────────────────────────
+// ── PHASES ─────────────────────────────────────────────────────────────────
 function goPhase(n){
-  currentPhase = n;
-  [1,2,3].forEach(function(i){
+  [0,1,2,3].forEach(function(i){
     document.getElementById('phase'+i).classList.toggle('active',i===n);
-    var btn = document.getElementById('pnav'+i);
-    btn.classList.remove('active','done');
-    if(i===n) btn.classList.add('active');
-    else if(i<n) btn.classList.add('done');
+    var b=document.getElementById('pnav'+i);
+    b.classList.remove('active','done');
+    if(i===n)b.classList.add('active');
+    else if(i<n)b.classList.add('done');
   });
-  if(n===3) generateFull();
+  if(n===3)generateFull();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ── GENERATE FULL ────────────────────────────────────────────────────────────
+// ── GENERATE ───────────────────────────────────────────────────────────────
 function generateFull(){
   document.getElementById('loadingBox').classList.add('active');
-  document.getElementById('resultBox').innerHTML = '';
-
-  var name = document.getElementById('clientName').value || 'Cliente';
-  var tot = scores.D+scores.I+scores.S+scores.C || 1;
-  var dom = 'D';['I','S','C'].forEach(function(d){if(scores[d]>scores[dom])dom=d;});
-
-  // Build context
-  var ctx = 'Segnali fase 1 (prime impressioni):\n';
-  Object.values(phase1answers).forEach(function(a){ctx+='- '+a.text+' ['+a.disc+']\n';});
-  ctx += '\nSegnali fase 2 (durante consulenza):\n';
-  phase2events.forEach(function(e){ctx+='- '+e.label+' ['+e.disc+']\n';});
-  ctx += '\nPunteggi grezzi: D='+scores.D+' I='+scores.I+' S='+scores.S+' C='+scores.C;
-
-  var prompt = 'Sei un esperto DISC applicato alla vendita di serramenti e finestre.\n\nHai raccolto questi segnali comportamentali sul cliente "'+name+'":\n\n'+ctx+'\n\nGenera il profilo DISC. Rispondi SOLO con JSON valido:\n{"dominant":"D|I|S|C","dominantName":"nome italiano","scores":{"D":0-100,"I":0-100,"S":0-100,"C":0-100},"who":"chi è 2-3 frasi","communicate":"come comunicare 2-3 frasi","sell":"come vendere serramenti a questa persona 3-4 frasi","do":["fare 1","fare 2","fare 3"],"dont":["evitare 1","evitare 2","evitare 3"],"closingPhrase":"frase di chiusura specifica per questo cliente"}';
-
+  document.getElementById('resultBox').innerHTML='';
+  var name=document.getElementById('clientName').value||'Cliente';
+  var tot=scores.D+scores.I+scores.S+scores.C||1;
+  var dom='D';['I','S','C'].forEach(function(d){if(scores[d]>scores[dom])dom=d;});
+  var ctx='Segnali fase 1:\n'+Object.values(p1answers).map(function(a){return'- '+a.text+' ['+a.disc+']';}).join('\n');
+  ctx+='\n\nSegnali fase 2:\n'+p2events.map(function(e){return'- '+e.label+' ['+e.disc+']';}).join('\n');
+  ctx+='\n\nPunteggi: D='+scores.D+' I='+scores.I+' S='+scores.S+' C='+scores.C;
+  var prompt='Sei un esperto DISC per la vendita di serramenti e finestre.\n\nSegnali comportamentali sul cliente "'+name+'":\n'+ctx+'\n\nGenera il profilo. Rispondi SOLO con JSON valido:\n{"dominant":"D|I|S|C","dominantName":"nome italiano","scores":{"D":0-100,"I":0-100,"S":0-100,"C":0-100},"who":"chi è 2-3 frasi","communicate":"come comunicare 2-3 frasi","sell":"come vendere serramenti a questa persona 3-4 frasi","do":["fare 1","fare 2","fare 3"],"dont":["evitare 1","evitare 2","evitare 3"],"closingPhrase":"frase di chiusura specifica per questo cliente"}';
   if(!apiKey){
-    setTimeout(function(){
-      showResult({
-        dominant:dom, dominantName:tips[dom].name,
-        scores:{D:Math.round(scores.D/tot*100),I:Math.round(scores.I/tot*100),S:Math.round(scores.S/tot*100),C:Math.round(scores.C/tot*100)},
-        who:'Profilo '+dom+' — Configura la API Key Anthropic per l\'analisi completa con AI.',
-        communicate:tips[dom].tip.replace(/<[^>]+>/g,''),
-        sell:'Con la API Key configurata, Claude analizzerà tutti i segnali raccolti e genererà una strategia di vendita personalizzata per questo cliente.',
-        do:['Configura API Key per analisi completa','Usa i consigli nella bussola qui sopra','Raccogli più segnali nella fase 2'],
-        dont:['Ignorare i segnali raccolti','Usare lo stesso approccio con tutti','Fare pressione senza conoscere il profilo'],
-        closingPhrase:'"Aggiungi la API Key per la frase di chiusura personalizzata."'
-      }, name);
-    }, 1500);
+    setTimeout(function(){showResult({dominant:dom,dominantName:tips[dom].name,scores:{D:Math.round(scores.D/tot*100),I:Math.round(scores.I/tot*100),S:Math.round(scores.S/tot*100),C:Math.round(scores.C/tot*100)},who:'Profilo '+dom+' rilevato. Configura la API Key per l\'analisi completa con AI.',communicate:tips[dom].tip.replace(/<[^>]+>/g,''),sell:'Aggiungi la API Key Anthropic per la strategia di vendita personalizzata generata da Claude.',do:['Configura API Key per analisi completa','Usa i consigli nella bussola qui sopra','Torna alla Fase 0 per le domande guida'],dont:['Ignorare i segnali raccolti','Usare lo stesso approccio con tutti i clienti','Fare pressione senza conoscere il profilo'],closingPhrase:'"Configura la API Key per la frase di chiusura personalizzata."'},name);},2000);
     return;
   }
-
-  fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
-  }).then(function(r){return r.json();}).then(function(data){
-    var txt = data.content&&data.content[0]?data.content[0].text:'';
-    var json = JSON.parse(txt.replace(/```json|```/g,'').trim());
-    showResult(json, name);
-  }).catch(function(e){
-    console.error(e);
-    showResult({dominant:dom,dominantName:tips[dom].name,scores:{D:Math.round(scores.D/tot*100),I:Math.round(scores.I/tot*100),S:Math.round(scores.S/tot*100),C:Math.round(scores.C/tot*100)},who:'Errore API. Controlla la chiave.',communicate:'—',sell:'—',do:['—'],dont:['—'],closingPhrase:'—'}, name);
-  });
+  fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var txt=data.content&&data.content[0]?data.content[0].text:'';
+    showResult(JSON.parse(txt.replace(/```json|```/g,'').trim()),name);
+  }).catch(function(e){console.error(e);showResult({dominant:dom,dominantName:tips[dom].name,scores:{D:Math.round(scores.D/tot*100),I:Math.round(scores.I/tot*100),S:Math.round(scores.S/tot*100),C:Math.round(scores.C/tot*100)},who:'Errore API.',communicate:'Controlla la chiave API.',sell:'—',do:['—'],dont:['—'],closingPhrase:'—'},name);});
 }
 
-function showResult(data, name){
+function showResult(data,name){
   document.getElementById('loadingBox').classList.remove('active');
-  var dom = data.dominant;
-  var pcts = data.scores||{D:25,I:25,S:25,C:25};
-
-  var doHtml = (data.do||[]).map(function(t){return'<div class="tip-row"><span>✅</span><span>'+t+'</span></div>';}).join('');
-  var dontHtml = (data.dont||[]).map(function(t){return'<div class="tip-row"><span>❌</span><span>'+t+'</span></div>';}).join('');
-
-  document.getElementById('resultBox').innerHTML =
-    '<div class="result-box">'
-    +'<div class="result-header">'
-    +'<div><div class="result-name">'+name+'</div><div class="result-sub">Profilo '+dom+' — '+data.dominantName+'</div></div>'
-    +'<div class="big-badge '+dom+'">'+dom+'</div>'
-    +'</div>'
-    +'<div class="res-bars">'
-    +['D','I','S','C'].map(function(d){return'<div class="res-row"><div class="res-lbl '+d+'">'+d+'</div><div class="res-track"><div class="res-fill '+d+'" id="rf'+d+'"></div></div><div class="res-pct" id="rp'+d+'">0%</div></div>';}).join('')
-    +'</div>'
+  var dom=data.dominant;var pcts=data.scores||{D:25,I:25,S:25,C:25};
+  var doH=(data.do||[]).map(function(t){return'<div class="tip-row"><span>✅</span><span>'+t+'</span></div>';}).join('');
+  var dnH=(data.dont||[]).map(function(t){return'<div class="tip-row"><span>❌</span><span>'+t+'</span></div>';}).join('');
+  document.getElementById('resultBox').innerHTML=
+    '<div class="result-box"><div class="result-header"><div><div class="result-name">'+name+'</div><div class="result-sub">Profilo '+dom+' — '+data.dominantName+'</div></div><div class="big-badge '+dom+'">'+dom+'</div></div>'
+    +'<div class="res-bars">'+['D','I','S','C'].map(function(d){return'<div class="res-row"><div class="res-lbl '+d+'">'+d+'</div><div class="res-track"><div class="res-fill '+d+'" id="rf'+d+'"></div></div><div class="res-pct" id="rp'+d+'">0%</div></div>';}).join('')+'</div>'
     +'<div class="res-cards">'
     +'<div class="res-card"><div class="res-card-title">🎯 Chi è</div><div class="res-card-body">'+data.who+'</div></div>'
     +'<div class="res-card"><div class="res-card-title">🗣️ Come comunicare</div><div class="res-card-body">'+data.communicate+'</div></div>'
     +'<div class="res-card"><div class="res-card-title">💼 Come chiudere la vendita</div><div class="res-card-body">'+data.sell+'</div></div>'
-    +'<div class="res-card"><div class="res-card-title">✅ Cosa fare</div>'+doHtml+'</div>'
-    +'<div class="res-card"><div class="res-card-title">❌ Cosa evitare</div>'+dontHtml+'</div>'
+    +'<div class="res-card"><div class="res-card-title">✅ Cosa fare</div>'+doH+'</div>'
+    +'<div class="res-card"><div class="res-card-title">❌ Cosa evitare</div>'+dnH+'</div>'
     +'<div class="res-card"><div class="res-card-title">⚡ Frase di chiusura</div><div class="phrase-box">'+data.closingPhrase+'</div></div>'
-    +'</div>'
-    +'<div class="result-actions">'
-    +'<button class="btn btn-ghost" onclick="resetAll()">🔄 Nuovo cliente</button>'
-    +'<button class="btn btn-ghost" onclick="copyRes(\''+name+'\',\''+dom+'\',\''+data.dominantName+'\')">📋 Copia</button>'
-    +'<button class="btn btn-primary" onclick="window.print()">🖨️ Stampa</button>'
-    +'</div></div>';
-
-  setTimeout(function(){
-    ['D','I','S','C'].forEach(function(d){
-      var p=pcts[d]||0;
-      document.getElementById('rf'+d).style.width=p+'%';
-      document.getElementById('rp'+d).textContent=p+'%';
-    });
-  },100);
+    +'</div><div class="result-actions"><button class="btn btn-ghost" onclick="resetAll()">🔄 Nuovo cliente</button><button class="btn btn-ghost" onclick="copyRes()">📋 Copia</button><button class="btn btn-primary" onclick="window.print()">🖨️ Stampa</button></div></div>';
+  setTimeout(function(){['D','I','S','C'].forEach(function(d){var p=pcts[d]||0;document.getElementById('rf'+d).style.width=p+'%';document.getElementById('rp'+d).textContent=p+'%';});},100);
 }
 
-function copyRes(name,dom,domName){
-  var who=document.querySelector('.res-card-body')?document.querySelectorAll('.res-card-body')[0].textContent:'';
-  var sell=document.querySelectorAll('.res-card-body')[2]?document.querySelectorAll('.res-card-body')[2].textContent:'';
-  var phrase=document.querySelector('.phrase-box')?document.querySelector('.phrase-box').textContent:'';
-  navigator.clipboard.writeText('DISC: '+name+'\nProfilo: '+dom+' ('+domName+')\n\nChi è: '+who+'\n\nVendita: '+sell+'\n\nChiusura: '+phrase);
-  alert('✅ Copiato!');
+function copyRes(){
+  var els=['result-name','result-sub'];var t='';
+  els.forEach(function(c){var e=document.querySelector('.'+c);if(e)t+=e.textContent+'\n';});
+  var bodies=document.querySelectorAll('.res-card-body');
+  bodies.forEach(function(b,i){var titles=['Chi è','Come comunicare','Come vendere'];if(titles[i])t+='\n'+titles[i]+': '+b.textContent;});
+  var ph=document.querySelector('.phrase-box');if(ph)t+='\n\nChiusura: '+ph.textContent;
+  navigator.clipboard.writeText(t);alert('✅ Copiato!');
 }
 
 function resetAll(){
-  scores={D:0,I:0,S:0,C:0};
-  phase1answers={};phase2events=[];currentPhase=1;
+  scores={D:0,I:0,S:0,C:0};p1answers={};p2events=[];
   document.getElementById('clientName').value='';
   document.getElementById('compassPill').className='disc-pill none';
   document.getElementById('compassPill').textContent='—';
-  document.getElementById('compassName').textContent='In attesa di segnali...';
-  document.getElementById('compassTip').textContent='Completa la Fase 1 per vedere il profilo in tempo reale.';
+  document.getElementById('compassName').textContent='In attesa...';
+  document.getElementById('compassTip').textContent='Inizia dalla Fase 0 per essere guidato con il cliente.';
   document.getElementById('compass').className='compass';
   ['D','I','S','C'].forEach(function(d){document.getElementById('mb'+d).style.height='0%';});
-  buildPhase1();buildPhase2();
-  goPhase(1);
+  buildGuide();buildPhase1();buildPhase2();
+  goPhase(0);
 }
 
 // INIT
+buildGuide();
 buildPhase1();
 buildPhase2();
 </script>
